@@ -20,9 +20,13 @@ export default new Vuex.Store({
 	mycards: [],
 	studiumscards : [],
 	sidecards:[],
-	deckcd: ''	
+	deckcd: '',
+	dblclicknm : ''
     },
     getters: {
+	getDblclicknm: (state) => {
+	    return state.dblclicknm;
+	},
 	getIsLoading: (state) => {
 	    return state.isLoading;
 	},	
@@ -67,11 +71,13 @@ export default new Vuex.Store({
 	}
     },    
     mutations: {
-	setIsLoading(state,payload)  {
+	setDblclicknm: (state,payload) => {
+	    state.dblclicknm = payload;
+	},
+	setIsLoading: (state,payload) => {
 	    state.isLoading = payload;
 	},	
 	setDeckCards: (state,value) => {
-	    console.log('deck',value);
 	    state.deckcards = value;
 	},
 	setBattleCards: (state,value) => {
@@ -99,7 +105,6 @@ export default new Vuex.Store({
 	    state.trashcards = value;
 	},
 	setMyCards: (state,value) => {
-	    console.log('mycard',value);
 	    state.mycards = value;
 	},
 	setStudiumsCards: (state,value) => {
@@ -111,6 +116,25 @@ export default new Vuex.Store({
 	setDeckcd: (state,value) => {
 	    state.deckcd = value;
 	},
+	setSelectedCardsProp(state,payload) {
+	    const name = payload.name;
+	    const ura = payload.ura || false;
+	    const dmg = payload.damages !== undefined ? payload.damages : -1;
+
+	    const result = state[name]
+		  .filter(card => card.isSelected===true)
+		.forEach(card => {
+		    card.isUra=ura;
+		    if(dmg > -1) {
+			card.damages=dmg;
+		    }
+		    card.isPoison=false;
+		    card.isParalysis=false;
+		    card.isBurn=false;		    
+		    card.isSleep=false;
+		    card.isConfusion=false;		    
+		})
+	},	
 	selectCardFromTop: (state,payload) => {
 	    const name = payload.name;
 	    const num = payload.num;
@@ -143,9 +167,31 @@ export default new Vuex.Store({
 	},
 	allUra(state,payload) {
 	    state[payload.name].filter(c => c.isUra == false).forEach(card => { card.isUra=true; });
-	}			
+	},
+	addCards(state,payload) {
+	    state[payload.name].unshift(payload.card);
+	}
     },
     actions: {
+	async isShowColumn(context,payload) {
+	    let retvalue = false;
+	    const cardsname = payload.cardsname;
+	    if(context.getters['getDblclicknm'] === cardsname) {
+		retvalue = true;
+	    } else if(context.getters['getDblclicknm'] === '') {
+		retvalue = true;		
+	    }
+
+	    return retvalue;
+	},
+	async chgDblClickMode(context,payload) {
+	    const cardsname = payload.cardsname;
+	    if(context.getters['getDblclicknm'] === cardsname) {
+		context.commit('setDblclicknm','');
+	    } else {
+		context.commit('setDblclicknm', cardsname);		
+	    }
+	},
 	async getPockemonJsonAction(context,payload) {
 	    context.commit( 'setIsLoading',true);
 	    const functions = firebase.functions();

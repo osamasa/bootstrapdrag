@@ -1,26 +1,26 @@
 <template>
-   <div>
-    <h5 v-show="!mycarditems.length>0">{{this.title}}</h5>
-     <draggable v-model="mycarditems" group="myGroup" @start="drag=true" @end="drag=false" :options="options">  
+  <div>
+    <h5>{{this.title}}</h5>
+     <draggable v-model="mycarditems" group="myGroup" @start="drag=true" @end="drag=false" :options="options" >
       <div class="itemcard m-0" v-for="(item,index) in mycarditems" :key="item.id">
-      	   <img :style="{width:cardwidth+'px'}"
-		:src="item.isUra===false ? getImageUrl(item.img) : 'https://www.pokemon-card.com/assets/images/noimage/poke_ura.jpg'" class="img-thumbnail"></img></div>
+      	<cardimg :cardwidth="cardwidth" :card="item"></cardimg></div>
      </draggable>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
+import cardimg from './cardimg'
 
 export default {
     name: "cardokiba",
 
-    components: { draggable },
+    components: { draggable, cardimg},
 
     props: {
 	'cardsname': String,
 	'title': String,
-	'cardwidth': Number,
+	'cardwidth': Number
     },
     
     data () {
@@ -34,6 +34,8 @@ export default {
     },
     mounted: function () {
         this.mycarditems = this.$store.state[this.cardsname];
+    },
+    methods: {
     },
     computed: {
 	deckcards : {

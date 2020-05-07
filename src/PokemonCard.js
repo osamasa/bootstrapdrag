@@ -37,8 +37,8 @@ export class CardClass {
     static shuffleCards = (([...array]) => {
 	for (let i = array.length - 1; i >= 0; i--) {
 	    const j = Math.floor(Math.random() * (i + 1));
-	    array[i].isUra=true;
-	    array[j].isUra=true;
+	    array[i].isUra=false;
+	    array[j].isUra=false;
 	    array[i].isSelected=false;
 	    array[j].isSelected=false;
 	    [array[i], array[j]] = [array[j], array[i]];

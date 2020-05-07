@@ -1,19 +1,22 @@
 <template>
   <div>
-    <h5>{{this.title}}({{mycarditems.length}})</h5>
-     <draggable v-model="mycarditems" group="myGroup" @start="drag=true" @end="drag=false" :options="options" >
-      <div class="itemcard m-0" v-for="(item,index) in mycarditems" :key="item.id">
-      	  <cardimg v-show="modalShow" :cardwidth="cardwidth" :card="item"></cardimg>
-	</div>
-     </draggable>
-    <div v-if="modalShow">
-    <b-button class="mt-3" variant="outline-danger" block @click="chgDblClickMode({'cardsname' : 'lostzonecards'});modalShow=false">Close</b-button>
+    <div @dblclick="chgDblClickMode({'cardsname' : 'deckcards'});modalShow = !modalShow">
+      <draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">
+    {{title}}({{ deckcards.length}})
+      </draggable>
     </div>
-    <div v-else>
-      <b-button class="mt-0" variant="outline-primary" blodk @click="chgDblClickMode({'cardsname' : 'lostzonecards'});modalShow=true">Open</b-button>
-    </div>     
+    <div v-if="modalShow" center :title="this.title">
+      <draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">    
+    <div class="itemcard m-0" v-for="(item,index) in deckcards" :key="index">
+      	<cardimg :cardwidth="cardwidth" :card="item"></cardimg>
+    </div>
+      </draggable>    
+      <b-button class="mt-3" variant="outline-danger" block @click="chgDblClickMode({'cardsname' : 'deckcards'});modalShow = !modalShow">Close</b-button>
+    </div>
+     <div v-else>
+      <b-button class="mt-0" variant="outline-primary" blodk @click="chgDblClickMode({'cardsname' : 'deckcards'});modalShow = !modalShow">Open</b-button>
+    </div>    
   </div>
-  
 </template>
 
 <script>
@@ -27,11 +30,10 @@ import { mapActions } from 'vuex'
 export default {
     name: "deckcards",
 
-    components: { draggable , cardimg },
+    components: { draggable , cardimg},
 
     props: {
 	'title': String,
-	'cardsname' : String,
 	'cardwidth' : Number
     },
     data () {
@@ -41,13 +43,8 @@ export default {
                 group: "myGroup",
                 animation: 200
             },
-	    mycarditems:[]	    
         }
     },
-    mounted: function () {
-        this.mycarditems = this.$store.state[this.cardsname];
-        console.log(this.cardsname, this.mycarditems)	;
-    },    
     methods: {
 	...mapMutations([
 	    'setDeckCards',

@@ -1,37 +1,39 @@
 <template>
   <div>
-    <h5>{{this.title}}({{mycarditems.length}})</h5>
-     <draggable v-model="mycarditems" group="myGroup" @start="drag=true" @end="drag=false" :options="options" >
-      <div class="itemcard m-0" v-for="(item,index) in mycarditems" :key="item.id">
-      	  <cardimg v-show="modalShow" :cardwidth="cardwidth" :card="item"></cardimg>
-	</div>
-     </draggable>
-    <div v-if="modalShow">
-    <b-button class="mt-3" variant="outline-danger" block @click="chgDblClickMode({'cardsname' : 'lostzonecards'});modalShow=false">Close</b-button>
+    <div>
+      <draggable v-model="trashcards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">
+    {{title}}({{ trashcards.length}})
+      </draggable>
     </div>
-    <div v-else>
-      <b-button class="mt-0" variant="outline-primary" blodk @click="chgDblClickMode({'cardsname' : 'lostzonecards'});modalShow=true">Open</b-button>
-    </div>     
+    <div v-if="modalShow || dblclicknm !==''" center :title="this.title">
+      <draggable v-model="trashcards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">    
+    <div class="itemcard m-0" v-for="(item,index) in trashcards" :key="index">
+      	<cardimg :cardwidth="cardwidth" :card="item"></cardimg>	          
+    </div>
+      </draggable>    
+      <b-button v-if="dblclicknm==='trashcards'" class="mt-3" variant="outline-danger" block @click="chgDblClickMode({'cardsname' : 'trashcards'});modalShow = !modalShow">Close</b-button>
+    </div>
+     <div v-else>
+      <b-button class="mt-0" variant="outline-primary" blodk @click="chgDblClickMode({'cardsname' : 'trashcards'});modalShow = !modalShow">Open</b-button>
+    </div>
   </div>
-  
 </template>
 
 <script>
-import cardimg from './cardimg'
 import draggable from 'vuedraggable'
 import CardClass from '../PokemonCard'
+import cardimg from './cardimg'
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {
-    name: "deckcards",
+    name: "trashcards",
 
-    components: { draggable , cardimg },
+    components: { draggable,cardimg },
 
     props: {
 	'title': String,
-	'cardsname' : String,
 	'cardwidth' : Number
     },
     data () {
@@ -41,13 +43,8 @@ export default {
                 group: "myGroup",
                 animation: 200
             },
-	    mycarditems:[]	    
         }
     },
-    mounted: function () {
-        this.mycarditems = this.$store.state[this.cardsname];
-        console.log(this.cardsname, this.mycarditems)	;
-    },    
     methods: {
 	...mapMutations([
 	    'setDeckCards',
@@ -100,6 +97,14 @@ export default {
 		return item.isUra;
 	    }
 	},
+	dblclicknm : {
+	    get() {
+		return this.$store.state.dblclicknm;
+	    },
+	    set(value) {
+		setDblclicknm(value);
+	    }
+	}	
     },
 }
 </script>
