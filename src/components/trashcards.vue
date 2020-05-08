@@ -11,10 +11,6 @@
       	<cardimg :cardwidth="cardwidth" :card="item"></cardimg>	          
     </div>
       </draggable>    
-      <b-button v-if="dblclicknm==='trashcards'" class="mt-3" variant="outline-danger" block @click="chgDblClickMode({'cardsname' : 'trashcards'});modalShow = !modalShow">Close</b-button>
-    </div>
-     <div v-else>
-      <b-button class="mt-0" variant="outline-primary" blodk @click="chgDblClickMode({'cardsname' : 'trashcards'});modalShow = !modalShow">Open</b-button>
     </div>
   </div>
 </template>

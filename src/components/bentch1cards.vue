@@ -1,8 +1,10 @@
 <template>
   <div>
-    {{this.title}}({{this[cardsname].length}})
-     <draggable v-model="cardobj" group="myGroup" @start="drag=true" @end="drag=false" :options="options" >
-     </draggable>
+    <div @dblclick="chgDblClickMode({'cardsname' : 'bentch1cards'});modalShow = !modalShow">
+      <draggable v-model="bentch1cards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">
+    {{title}}({{ bentch1cards.length}})
+      </draggable>
+    </div>
   </div>
 </template>
 
@@ -14,14 +16,13 @@ import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 export default {
-    name: "deckcards",
+    name: "bentch1cards",
 
-    components: { draggable , cardimg },
+    components: { draggable , cardimg},
 
     props: {
 	'title': String,
-	'cardsname' : String,
-	'cardobj' : Array
+	'cardwidth' : Number
     },
     data () {
         return {
@@ -30,17 +31,9 @@ export default {
                 group: "myGroup",
                 animation: 200
             },
-	    mycarditems:null
         }
     },
-    mounted: function () {
-        this.mycarditems = this.$store.state[this.cardsname];
-    },    
     methods: {
-	...mapMutations([
-	    'setDeckCards',
-	    'addCards'
-	]),
 	...mapActions([
 	    'chgDblClickMode'
 	])
@@ -78,6 +71,46 @@ export default {
 		 this.$store.commit('setSideCards',value);
 	     }
 	},
+	bentch1cards : {
+	    get() {
+		return this.$store.state.bentch1cards;
+	    },
+	    set(value) {
+		this.$store.commit('setBench1Cards',value);
+	    }
+	},
+	bentch2cards : {
+	    get() {
+		return this.$store.state.bentch2cards;
+	    },
+	    set(value) {
+		this.$store.commit('setBench2Cards',value);
+	    }
+	},
+	bentch3cards : {
+	    get() {
+		return this.$store.state.bentch3cards;
+	    },
+	    set(value) {
+		this.$store.commit('setBench3Cards',value);
+	    }
+	},
+	bentch4cards : {
+	    get() {
+		return this.$store.state.bentch4cards;
+	    },
+	    set(value) {
+		this.$store.commit('setBench4Cards',value);
+	    }
+	},
+	bentch5cards : {
+	    get() {
+		return this.$store.state.bentch5cards;
+	    },
+	    set(value) {
+		this.$store.commit('setBench5Cards',value);
+	    }
+	},			
 	getImageUrl: function() {
 	    return function(item) {
 		return 'https://www.pokemon-card.com' + item;

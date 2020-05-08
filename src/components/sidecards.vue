@@ -1,21 +1,8 @@
 <template>
-  <div>
-    <div @dblclick="chgDblClickMode({'cardsname' : 'sidecards'});modalShow = !modalShow">
+  <div @dblclick="chgDblClickMode({'cardsname' : 'sidecards'})">
       <draggable v-model="sidecards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">
     {{title}}({{ sidecards.length}})
       </draggable>
-    </div>
-    <div v-if="modalShow" center :title="this.title">
-      <draggable v-model="sidecards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">    
-    <div class="itemcard m-0" v-for="(item,index) in sidecards" :key="index">
-      	<cardimg :cardwidth="cardwidth" :card="item"></cardimg>	      
-    </div>
-      </draggable>    
-      <b-button class="mt-3" variant="outline-danger" block @click="chgDblClickMode({'cardsname' : 'sidecards'});modalShow = !modalShow">Close</b-button>
-    </div>
-     <div v-else>
-      <b-button class="mt-0" variant="outline-primary" blodk @click="chgDblClickMode({'cardsname' : 'sidecards'});modalShow = !modalShow">Open</b-button>
-    </div>        
   </div>
 </template>
 

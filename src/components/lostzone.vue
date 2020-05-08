@@ -11,10 +11,6 @@
       	<cardimg :cardwidth="cardwidth" :card="item"></cardimg>	  
 	</div>
       </draggable>    
-      <b-button class="mt-3" variant="outline-danger" block @click="chgDblClickMode({'cardsname' : 'lostzonecards'});modalShow = !modalShow">Close</b-button>
-    </div>
-    <div v-else>
-      <b-button class="mt-0" variant="outline-primary" blodk @click="chgDblClickMode({'cardsname' : 'lostzonecards'});modalShow = !modalShow">Open</b-button>
     </div>
   </div>
 </template>
@@ -113,5 +109,8 @@ export default {
   }
   .item:active {
     cursor: grabbing;
+  }
+  .divground {
+    background-color: #99cc00
   }
 </style>

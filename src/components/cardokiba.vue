@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <h5>{{this.title}}</h5>
-     <draggable v-model="mycarditems" group="myGroup" @start="drag=true" @end="drag=false" :options="options" >
+  <div>{{this.title}}
+     <draggable v-model="mycarditems" group="myGroup" @start="drag=true" :move="onmove" @end="drag=false" :options="options" >
       <div class="itemcard m-0" v-for="(item,index) in mycarditems" :key="item.id">
       	<cardimg :cardwidth="cardwidth" :card="item"></cardimg></div>
      </draggable>
@@ -36,6 +35,10 @@ export default {
         this.mycarditems = this.$store.state[this.cardsname];
     },
     methods: {
+         onmove: (e) => {
+          console.log("onmove",e);
+          return true
+        }
     },
     computed: {
 	deckcards : {

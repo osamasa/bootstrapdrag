@@ -1,28 +1,14 @@
 <template>
-  <div>
-    <div @dblclick="chgDblClickMode({'cardsname' : 'deckcards'});modalShow = !modalShow">
-      <draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">
+  <div @dblclick="chgDblClickMode({'cardsname' : 'deckcards'})">
+   <draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">
     {{title}}({{ deckcards.length}})
-      </draggable>
-    </div>
-    <div v-if="modalShow" center :title="this.title">
-      <draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false" :options="options">    
-    <div class="itemcard m-0" v-for="(item,index) in deckcards" :key="index">
-      	<cardimg :cardwidth="cardwidth" :card="item"></cardimg>
-    </div>
-      </draggable>    
-      <b-button class="mt-3" variant="outline-danger" block @click="chgDblClickMode({'cardsname' : 'deckcards'});modalShow = !modalShow">Close</b-button>
-    </div>
-     <div v-else>
-      <b-button class="mt-0" variant="outline-primary" blodk @click="chgDblClickMode({'cardsname' : 'deckcards'});modalShow = !modalShow">Open</b-button>
-    </div>    
+    </draggable>
   </div>
 </template>
 
 <script>
 import cardimg from './cardimg'
 import draggable from 'vuedraggable'
-import CardClass from '../PokemonCard'
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -102,12 +88,6 @@ export default {
 </script>
 
 <style>
-  .itemcard {
-    display: inline-block;
-    margin: 1px;
-    padding: 1px;
-    background-color: #ffffff;
-  }
   .item:hover {
     cursor: grab;
   }
