@@ -45,6 +45,9 @@ export class CardClass {
 	}
 	return array;		
     })
+    static hasSelectedCard = (([...array]) => {
+	return array.filter(card => card.isSelected===true).length > 0;
+    })    
 }
 
 export class TanePokemonClass extends CardClass {

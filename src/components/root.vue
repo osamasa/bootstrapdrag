@@ -1,40 +1,77 @@
 <template>
   <div>
     <b-container>
-      <b-row style='height: 80px'>
-	<b-col class="bg-light border"><deckcards cardsname="deckcards" :cardwidth=40 title="山札"></deckcards></b-col>
-	<b-col class="bg-light border"><draggable v-model="sidecards" group="myGroup" @start="drag=true" @end="drag=false">サイド({{sidecards.length}})</draggable></b-col>
-	<b-col class="bg-light border"><draggable v-model="battlecards" group="myGroup" @start="drag=true" @end="drag=false">バトル場({{battlecards.length}})</draggable></b-col>
+      <b-row style='height: 130px'>
 	<b-col class="bg-light border">
-	  <cardokiba cardsname="studiumscards"　title="スタジアム" :cardwidth=10></cardokiba></b-col>
-	<b-col class="bg-light border"><draggable v-model="trashcards" group="myGroup" @start="drag=true" @end="drag=false">トラッシュ({{trashcards.length}})</draggable></b-col>
-	<b-col class="bg-light border"><draggable v-model="lostzonecards" group="myGroup" @start="drag=true" @end="drag=false">ロストゾーン({{lostzonecards.length}})</draggable></b-col>
+	  <small class="text-muted">
+	    <cardokiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=20></cardokiba>
+	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='battlecards'" size="sm">OPEN</b-button>	    
+	  </small>
+	</b-col>
+	<b-col class="bg-light border">
+	  <small class="text-muted">    
+	    <cardokiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=60></cardokiba>
+	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='studiumscards'" size="sm">OPEN</b-button>	    
+	</small></b-col>
+	<b-col>
+	  <b-row class="h-50">
+	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false">山札({{deckcards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='deckcards'">OPEN</b-button></draggable></small></b-col>
+	  </b-row>
+	  <b-row class="h-50">
+	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="sidecards" group="myGroup" @start="drag=true" @end="drag=false">サイド({{sidecards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='sidecards'">OPEN</b-button></draggable></small></b-col>
+	  </b-row>
+	</b-col>
+	<b-col>
+	  <b-row class="h-50">    
+	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="trashcards" group="myGroup" @start="drag=true" @end="drag=false">ﾄﾗｯｼｭ({{trashcards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='trashcards'">OPEN</b-button></draggable></small></b-col>
+	  </b-row>
+	  <b-row class="h-50">    
+	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="lostzonecards" group="myGroup" @start="drag=true" @end="drag=false">ﾛｽﾄｿﾞｰﾝ({{lostzonecards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='lostzonecards'">OPEN</b-button></draggable></small></b-col>
+	  </b-row>
+	</b-col>
       </b-row>      
-      <b-row style='height: 80px'>
+      <b-row style='height: 140px'>
 	<b-col class="bg-light border">
-	  <cardokiba cardsname="bench1cards"　title="ベンチ1" :cardwidth=10></cardokiba>
+	  <small class="text-muted">
+	    <cardokiba cardsname="bench1cards" :nottile=true title="ベンチ1" :cardwidth=20></cardokiba>
+	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench1cards'" size="sm">OPEN</b-button>
+	  </small>
 	</b-col>
 	<b-col class="bg-light border">
-	  <cardokiba cardsname="bench2cards"　title="ベンチ2" :cardwidth=10></cardokiba>
+	  <small class="text-muted">    
+	    <cardokiba cardsname="bench2cards" :nottile=true title="ベンチ2" :cardwidth=20></cardokiba>
+	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench2cards'" size="sm">OPEN</b-button>
+	  </small>
 	</b-col>
 	<b-col class="bg-light border">
-	  <cardokiba cardsname="bench3cards"　title="ベンチ3" :cardwidth=10></cardokiba>
+	  <small class="text-muted">        
+	    <cardokiba cardsname="bench3cards" :nottile=true title="ベンチ3" :cardwidth=20></cardokiba>
+	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench3cards'" size="sm">OPEN</b-button>
+	  </small>
 	</b-col>
 	<b-col class="bg-light border">
-	  <cardokiba cardsname="bench4cards"　title="ベンチ4" :cardwidth=10></cardokiba>
+	  <small class="text-muted">            
+	    <cardokiba cardsname="bench4cards" :nottile=true title="ベンチ4" :cardwidth=20></cardokiba>
+	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench4cards'" size="sm">OPEN</b-button>
+	  </small>
 	</b-col>
 	<b-col class="bg-light border">
-	  <cardokiba cardsname="bench5cards"　title="ベンチ5" :cardwidth=10></cardokiba>
+	  <small class="text-muted">                
+	    <cardokiba cardsname="bench5cards" :nottile=true title="ベンチ5" :cardwidth=20></cardokiba>
+	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench5cards'" size="sm">OPEN</b-button>
+	  </small>
 	</b-col>	
       </b-row>
-    </b-container>      
-    <b-container>
       <b-row class="row item">
-	<b-col>        
-	  <cardokiba cardsname="mycards"　title="手札" :cardwidth=60></cardokiba>
+	<b-col>
+    <small class="text-muted">
+    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='mycards'" size="sm">OPEN</b-button>
+	    <cardokiba cardsname="mycards"　title="手札" :cardwidth=60></cardokiba>
+	  </small>
 	</b-col>
-      </b-row>
-    </b-container>
+      </b-row>    
+    </b-container>      
+
     <div class="fixed-bottom d-flex flex-row-reverse p-2">
       <button @click="modalShow = !modalShow" type="button" class="btn btn-primary rounded-circle p-0" style="width:4rem;height:4rem;">＋</button>
     </div>
@@ -48,7 +85,7 @@
 	      ></b-form-select>
 	  </b-col>
 	  <b-col>
-	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':yamafudatomy});moveSelectedCard({'from':'deckcards','out':'mycards'});setSelectedCardsProp({'name':'mycards', 'ura':false});allUnSelected({'name':'mycards'});modalShow=false;" class="btn btn-outline-primary btn-lg btn-block">枚山札から引く</button>
+	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':yamafudatomy});moveSelectedCard({'from':'deckcards','out':'mycards','rev':true});setSelectedCardsProp({'name':'mycards', 'ura':false});allUnSelected({'name':'mycards'});modalShow=!modalShow;" class="btn btn-outline-primary btn-lg btn-block">枚山札から引く</button>
 	  </b-col>
 	</b-row>
 	<b-row class="mb-1">	
@@ -60,15 +97,28 @@
 	      ></b-form-select>
 	  </b-col>
 	  <b-col>
-	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':yamafudatoside});moveSelectedCard({'from':'deckcards','out':'sidecards'});setSelectedCardsProp({'name':'sidecards', 'ura':true});allUnSelected({'name':'sidecards'});modalShow=false;" class="btn btn-outline-primary btn-lg btn-block">枚山札からサイドへ</button>
+	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':yamafudatoside});moveSelectedCard({'from':'deckcards','out':'sidecards','rev':true});setSelectedCardsProp({'name':'sidecards', 'ura':false});allUnSelected({'name':'sidecards'});modalShow=!modalShow;" class="btn btn-outline-primary btn-lg btn-block">枚山札からサイドへ</button>
 	  </b-col>
-	</b-row>	
+	</b-row>
 	<b-row class="mb-1">		
 	  <b-col>	    	    
-	    <button type="button" class="btn btn btn-danger btn-lg btn-block">最初からやり直す</button>
+	    <button type="button" @click="myShuffleCards();allSelected({'name':'mycards'});moveSelectedCard({'from':'mycards','out':'deckcards', 'rev':false});setSelectedCardsProp({'name':'deckcards', 'ura':false});allUnSelected({'name':'deckcards'});modalShow=!modalShow;" class="btn btn btn-outline-info btn-lg btn-block">手札をすべて山札の下に(マリィ)</button>
+	  </b-col>
+	</b-row>        
+	<b-row class="mb-1">		
+	  <b-col>	    	    
+	    <button type="button" @click="deckShuffleCards();modalShow=!modalShow;" class="btn btn btn-outline-warning btn-lg btn-block">山札をシャッフル</button>
+	  </b-col>
+	</b-row>    
+	<b-row class="mb-1">		
+	  <b-col>	    	    
+	    <button type="button" @click="resetMyDecks();modalShow=!modalShow;" class="btn btn btn-danger btn-lg btn-block">最初からやり直す</button>
 	  </b-col>
 	</b-row>
       </b-container>
+    </b-modal>
+    <b-modal v-model="cardmodalShow"  size="xl" centered :title="titles[dblclicknm]" ok-only>
+      <okiba :cardsname="dblclicknm" :cardwidth=100></okiba>
     </b-modal>
   </div>
 </template>
@@ -76,29 +126,40 @@
 <script>
 import cardokiba from './cardokiba'
 import okiba from './okiba'
-import lostzonecards from './lostzone'    
-import deckcards from './deckcards'
-import sidecards from './sidecards'
-import trashcards from './trashcards'
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import draggable from 'vuedraggable'
 import cardimg from './cardimg'
-
+import { CardClass } from '../PokemonCard.js'
 export default {
     name: "root",
-    components: { cardokiba , okiba, lostzonecards, deckcards , sidecards , trashcards, draggable,cardimg},
+    components: { cardokiba , okiba, draggable,cardimg},
     data: () => ({
 	maisuu : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
 	yamafudatomy : 1,
 	yamafudatoside : 6,
         deccd : '2pMEMp-1MQ78m-y2pppX',
 	modalShow: false,
+	cardmodalShow: false,	
 	options: {
             group: "myGroup",
             animation: 200
         },
+	titles : {
+	    'battlecards' : 'バトル場のカードを選択し移動',
+	    'studiumscards' : 'スタジアムのカードを選択し移動',	    
+	    'mycards' : '手札のカードを選択し移動',
+	    'bench1cards' : 'ベンチ１のカードを選択し移動',
+	    'bench2cards' : 'ベンチ２のカードを選択し移動',
+	    'bench3cards' : 'ベンチ３のカードを選択し移動',
+	    'bench4cards' : 'ベンチ４のカードを選択し移動',
+	    'bench5cards' : 'ベンチ５のカードを選択し移動',	    
+	    'deckcards' : '山札のカードを選択し移動',
+	    'sidecards' : 'サイドのカードを選択し移動',
+	    'lostzonecards' : 'ロストゾーンのカードを選択し移動',
+	    'trashcards' : 'トラッシュのカードを選択し移動'
+	}
     }),
     created() {
 	this.getPockemonJsonAction({'deccd':this.deccd});
@@ -114,8 +175,15 @@ export default {
 	]),
 	...mapActions([
 	    'getPockemonJsonAction',
-	    'isShowColumn'
+	    'chgDblClickMode',
+	    'resetMyDecks'
 	]),
+	myShuffleCards : function() {
+	    this.$store.commit('setMyCards',CardClass.shuffleCards(this.$store.getters.getMyCards));
+	},
+	deckShuffleCards : function() {
+	    this.$store.commit('setDeckCards',CardClass.shuffleCards(this.$store.getters.getDeckCards));
+	}	
     },
     computed: {
 	dblclicknm : {
@@ -123,7 +191,7 @@ export default {
 		return this.$store.state.dblclicknm;
 	    },
 	    set(value) {
-		setDblclicknm(value);
+		this.$store.commit('setDblclicknm',value);
 	    }
 	},
 	deckcards : {
@@ -230,8 +298,12 @@ export default {
   .item:hover {
     cursor: grab;
   }
+  .zoomable:hover {
+    cursor: pointer;
+  }
   .item:active {
     cursor: grabbing;
   }
-
 </style>
+
+

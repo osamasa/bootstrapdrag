@@ -21,7 +21,7 @@ export default new Vuex.Store({
 	studiumscards : [],
 	sidecards:[],
 	deckcd: '',
-	dblclicknm : ''
+	dblclicknm : '',
     },
     getters: {
 	getDblclicknm: (state) => {
@@ -147,10 +147,15 @@ export default new Vuex.Store({
 	    }
 	},
 	moveSelectedCard(state,payload) {
+	    const rev = payload.rev;
 	    const tmp = state[payload.from]
 		  .filter(card => card.isSelected==true);
 	    while(tmp.length > 0) {
-		state[payload.out].push(tmp.shift());
+		if(!rev) {		
+		    state[payload.out].push(tmp.shift());
+		} else {
+		    state[payload.out].unshift(tmp.shift());		    
+		}
 	    };
 	    const tmp2 = state[payload.from]
 		  .filter(card => card.isSelected!=true);
@@ -178,8 +183,6 @@ export default new Vuex.Store({
 	    const cardsname = payload.cardsname;
 	    if(context.getters['getDblclicknm'] === cardsname) {
 		retvalue = true;
-	    } else if(context.getters['getDblclicknm'] === '') {
-		retvalue = true;		
 	    }
 
 	    return retvalue;
@@ -192,6 +195,21 @@ export default new Vuex.Store({
 		context.commit('setDblclicknm', cardsname);		
 	    }
 	},
+	async resetMyDecks(context,payload) {
+	    const works=['mycards','bench5cards','bench4cards','bench3cards','bench2cards','bench1cards','lostzonecards','trashcards','sidecards','studiumscards','battlecards'];
+	    works.forEach(cardname => {
+		if(context.state[cardname].length > 0) {
+		    context.commit('allSelected',{'name' : cardname});
+		    context.commit('moveSelectedCard',{'from':cardname,'out':'deckcards', 'ref' : false});
+		}
+	    });
+	    context.commit('setDeckCards',CardClass.shuffleCards(context.getters.getDeckCards));
+	    context.commit('selectCardFromTop',{'name':'deckcards', 'num':7});
+	    context.commit('moveSelectedCard',{'from':'deckcards','out':'mycards', 'ref' : false});
+	    context.commit('allOmote',{'name':'mycards'});
+	    context.commit('allUnSelected',{'name':'mycards'});
+	    context.commit('allUnSelected',{'name':'deckcards'});
+	},
 	async getPockemonJsonAction(context,payload) {
 	    context.commit( 'setIsLoading',true);
 	    const functions = firebase.functions();
@@ -203,6 +221,7 @@ export default new Vuex.Store({
 		const cards = [];
 		res.data.forEach( rec => {cards.push(new CardClass(rec.img))});
 		context.commit('setDeckCards',CardClass.shuffleCards(cards));
+		context.commit('setMyCards',[]);
 		context.commit('setBattleCards',[]);
 		context.commit('setBench1Cards',[]);
 		context.commit('setBench2Cards',[]);

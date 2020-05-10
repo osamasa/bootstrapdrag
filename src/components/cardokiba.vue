@@ -1,7 +1,7 @@
 <template>
-  <div>{{this.title}}
-     <draggable v-model="mycarditems" group="myGroup" @start="drag=true" :move="onmove" @end="drag=false" :options="options" >
-      <div class="itemcard m-0" v-for="(item,index) in mycarditems" :key="item.id">
+  <div>{{nottile && innerMycarditems.length > 0 ? '' : this.title}}
+     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false" :options="options" >
+      <div class="itemcard m-0" v-for="(item,index) in innerMycarditems" :key="item.id">
       	<cardimg :cardwidth="cardwidth" :card="item"></cardimg></div>
      </draggable>
   </div>
@@ -17,134 +17,38 @@ export default {
     components: { draggable, cardimg},
 
     props: {
+        'nottile' : Boolean,
 	'cardsname': String,
 	'title': String,
-	'cardwidth': Number
+	'cardwidth': Number,
     },
     
     data () {
         return {
             options: {
                 group: "myGroup",
-                animation: 200
+                animation: 200,
+
             },
-	    mycarditems:[]
-        }
-    },
-    mounted: function () {
-        this.mycarditems = this.$store.state[this.cardsname];
-    },
-    methods: {
-         onmove: (e) => {
-          console.log("onmove",e);
-          return true
+	    setternames: {
+		'mycards' : 'setMyCards',
+		'bench1cards' : 'setBench1Cards',
+		'bench2cards' : 'setBench2Cards',
+		'bench3cards' : 'setBench3Cards',
+		'bench4cards' : 'setBench4Cards',		
+		'bench5cards' : 'setBench5Cards',
+		'battlecards' : 'setBattleCards',
+		'studiumscards' : 'setStudiumsCards'	
+	    }
         }
     },
     computed: {
-	deckcards : {
-	     get() {
-		 return this.$store.state.deckcards;
+    	innerMycarditems : {
+	    get() {
+		 return this.$store.state[this.cardsname];
 	     },
-	     set(value) {
-		 this.$store.dispatch('setDeckCards', value)
-	     }
-	},
-	battlecards: {
-	     get () {
-		 return this.$store.state.battlecards;
-	     },
-	     set (value) {
-		 this.$store.dispatch('setBattleCards', value)
-	     }	    
-	},
-	bench1cards : {
-	    get () {
-		return this.$store.state.bench1cards;
-	    },
-	    set (value) {
-		 this.$store.dispatch('setBench1Cards', value)
-	     }	    
-	},	    
-	bench2cards : {
-	    get () {
-		return this.$store.state.bench2cards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setBench2Cards', value)
-	     }
-	},
-	bench3cards : {
-	    get () {
-		return this.$store.state.bench3cards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setBench3Cards', value)
-	     }
-	},
-	bench4cards : {
-	    get () {
-		return this.$store.state.bench4cards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setBench4Cards', value)
-	     }
-	},	    
-	bench5cards : {
-	    get () {
-		return this.$store.state.bench5cards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setBench5Cards', value)
-	     }
-	},	    
-	lostzonecards : {
-	    get () {
-		return this.$store.state.lostzonecards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setLostzoneCards', value)
-	     }
-	},	    	    
-	trashcards: {
-	    get () {
-		return this.$store.state.trashcards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setTrashCards', value)
-	     }
-	},	    	  	    
-  	  	    	    
-	studiumscards : {
-	    get () {
-		return this.$store.state.studiumscards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setStudiumsCards', value)
-	     }
-	},
-	mycards: {
-	    get () {
-		return this.$store.state.mycards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setMyCards', value)
-	     }
-	
-	},
-	sidecards:{
-	    get () {
-		return this.$store.state.sidecards;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setSideCards', value)
-	     }
-	},	    	  	    	    	    	    
-	deckcd: {
-	    get () {
-		return this.$store.state.deckcd;
-	    },
-	     set (value) {
-		 this.$store.dispatch('setDeckcd', value)
+	    set(value) {
+		this.$store.commit(this.setternames[this.cardsname],value)
 	     }
 	},
 	getImageUrl: function() {
@@ -169,4 +73,11 @@ export default {
   .item:active {
     cursor: grabbing;
   }
+  .sortable-chosen {
+      opacity: 0.7;
+      background-color:#dcdcdc;
+  }  
+ .sortable-ghost {
+      background-color:#dcdcdc;
+  }  
 </style>
