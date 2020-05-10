@@ -139,7 +139,6 @@ export default {
 	maisuu : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
 	yamafudatomy : 1,
 	yamafudatoside : 6,
-        deccd : '2pMEMp-1MQ78m-y2pppX',
 	modalShow: false,
 	cardmodalShow: false,	
 	options: {
@@ -162,7 +161,7 @@ export default {
 	}
     }),
     created() {
-	this.getPockemonJsonAction({'deccd':this.deccd});
+	this.getPockemonJsonAction();
     },
     methods: {
 	...mapMutations([
@@ -186,6 +185,14 @@ export default {
 	}	
     },
     computed: {
+	deckcd : {
+	     get() {
+		 return this.$store.state.deckcd;
+	     },
+	     set(value) {
+		 this.$store.commit('setDeckcd',value);
+	     }
+	},
 	dblclicknm : {
 	    get() {
 		return this.$store.state.dblclicknm;

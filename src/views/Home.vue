@@ -1,22 +1,24 @@
 <template>
-<div>
-<h3>一人で回すポケモンカード</h3>
-<p class="lead">
-移動はカードをドラッグしながら、違うカード置き場に持っていくか、各カード置き場にあるOPENボタンを開いて移動するカードを選択して移動させます。</br>
-カードをダブルクリックすると画像が拡大し詳細が確認できます。
-</p>
-  <hello-world />
-</div>
+  <div>
+    <div v-if="getIsLoading" class="d-flex justify-content-center mb-3">
+      <b-spinner label="Loading..."></b-spinner>
+    </div>    
+    <hello-world />
+  </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'  
   import HelloWorld from '../components/root'
-
   export default {
-    name: 'Home',
-
-    components: {
-      HelloWorld,
-    },
+      name: 'Home',
+      components: {
+	  HelloWorld,
+      },
+      computed: {
+	  ...mapGetters([
+	      'getIsLoading'
+	  ])
+      }
   }
 </script>

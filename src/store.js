@@ -20,7 +20,7 @@ export default new Vuex.Store({
 	mycards: [],
 	studiumscards : [],
 	sidecards:[],
-	deckcd: '',
+	deckcd: '6H6ggn-GcjdrT-LQnnHg',
 	dblclicknm : '',
     },
     getters: {
@@ -217,7 +217,7 @@ export default new Vuex.Store({
 		functions.useFunctionsEmulator("http://localhost:5000");
 	    }
 	    const func = functions.httpsCallable("getPokemonCard");
-	    func({ deccd: payload.deccd }).then(res => {
+	    func({ deccd: context.getters.getDeckcd }).then(res => {
 		const cards = [];
 		res.data.forEach( rec => {cards.push(new CardClass(rec.img))});
 		context.commit('setDeckCards',CardClass.shuffleCards(cards));
