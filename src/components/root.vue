@@ -65,8 +65,8 @@
       <b-row class="row item">
 	<b-col>
     <small class="text-muted">
-    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='mycards'" size="sm">OPEN</b-button>
-	    <cardokiba cardsname="mycards"　title="手札" :cardwidth=60></cardokiba>
+    手札&nbsp;<b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='mycards'" size="sm">OPEN</b-button>
+	    <cardokiba cardsname="mycards":cardwidth=60></cardokiba>
 	  </small>
 	</b-col>
       </b-row>    
