@@ -12,8 +12,8 @@
       >
       <b-card-text>
 	<ul>
-	  <li>自分で作った<b-link href="https://www.pokemon-card.com/deck/deck.html">カードデッキ</b-link>を試しに一人で動かせます</li>
-	  <li>一人で動かすことにより、デッキ組立ての検証が行えます</li>
+	  <li>自分で作った<b-link href="https://www.pokemon-card.com/deck/deck.html">カードデッキ</b-link>を一人回し出来るシステムです。</li>
+	  <li>一人回しを行うことにより、作成したカードデッキの検証が行えます</li>
 	  </ul>
       </b-card-text>
       <b-button @click="showsetsumei=!showsetsumei" variant="secondary">HIDE</b-button>
