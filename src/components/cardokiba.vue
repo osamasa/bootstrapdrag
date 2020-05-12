@@ -50,11 +50,6 @@ export default {
 	    set(value) {
 		this.$store.commit(this.setternames[this.cardsname],value)
 	     }
-	},
-	getImageUrl: function() {
-	    return function(i) {
-		return 'https://www.pokemon-card.com' + i;
-	    }
 	}
     }	
 }

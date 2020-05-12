@@ -109,7 +109,7 @@
 	      ></b-form-select>
 	  </b-col>
 	  <b-col>
-	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':negaiboshi});setSelectedCardsProp({'name':'deckcards', 'ura':false});allUnSelected({'name':'deckcards'});cardmodalShow=!cardmodalShow;dblclicknm='deckcards'" class="btn btn-outline-primary btn-lg btn-block">枚山札を開く（ねがいぼし）</button>
+	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':negaiboshi});setSelectedCardsProp({'name':'deckcards', 'ura':false});allUnSelected({'name':'deckcards'});cardmodalShow=!cardmodalShow;dblclicknm='deckcards';modalShow=!modalShow" class="btn btn-outline-primary btn-lg btn-block">枚山札を開く（ねがいぼし）</button>
 	  </b-col>
 	</b-row>	
 	
@@ -156,7 +156,7 @@ export default {
 	yamafudatomy : 1,
 	yamafudatoside : 6,
 	modalShow: false,
-cardmodalShow: false,
+	cardmodalShow: false,
 	options: {
             group: "myGroup",
             animation: 200
