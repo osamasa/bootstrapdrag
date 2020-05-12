@@ -97,14 +97,28 @@
 	      ></b-form-select>
 	  </b-col>
 	  <b-col>
-	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':yamafudatoside});moveSelectedCard({'from':'deckcards','out':'sidecards','rev':true});setSelectedCardsProp({'name':'sidecards', 'ura':false});allUnSelected({'name':'sidecards'});modalShow=!modalShow;" class="btn btn-outline-primary btn-lg btn-block">枚山札からサイドへ</button>
+	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':yamafudatoside});moveSelectedCard({'from':'deckcards','out':'sidecards','rev':true});setSelectedCardsProp({'name':'sidecards', 'ura':true});allUnSelected({'name':'sidecards'});modalShow=!modalShow;" class="btn btn-outline-primary btn-lg btn-block">枚山札からサイドへ</button>
 	  </b-col>
 	</b-row>
+
+	<b-row class="mb-1">	
+	  <b-col cols="3">
+	    <b-form-select
+	      v-model="negaiboshi"
+	      :options="maisuu"
+	      ></b-form-select>
+	  </b-col>
+	  <b-col>
+	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':negaiboshi});setSelectedCardsProp({'name':'deckcards', 'ura':false});allUnSelected({'name':'deckcards'});cardmodalShow=!cardmodalShow;dblclicknm='deckcards'" class="btn btn-outline-primary btn-lg btn-block">枚山札を開く（ねがいぼし）</button>
+	  </b-col>
+	</b-row>	
+	
 	<b-row class="mb-1">		
 	  <b-col>	    	    
-	    <button type="button" @click="myShuffleCards();allSelected({'name':'mycards'});moveSelectedCard({'from':'mycards','out':'deckcards', 'rev':false});setSelectedCardsProp({'name':'deckcards', 'ura':false});allUnSelected({'name':'deckcards'});modalShow=!modalShow;" class="btn btn btn-outline-info btn-lg btn-block">手札をすべて山札の下に(マリィ)</button>
+	    <button type="button" @click="myShuffleCards();allSelected({'name':'mycards'});moveSelectedCard({'from':'mycards','out':'deckcards', 'rev':false});setSelectedCardsProp({'name':'deckcards', 'ura':true});allUnSelected({'name':'deckcards'});modalShow=!modalShow;" class="btn btn btn-outline-info btn-lg btn-block">手札をすべて山札の下に(マリィ)</button>
 	  </b-col>
-	</b-row>        
+	</b-row>
+
 	<b-row class="mb-1">		
 	  <b-col>	    	    
 	    <button type="button" @click="deckShuffleCards();modalShow=!modalShow;" class="btn btn btn-outline-warning btn-lg btn-block">山札をシャッフル</button>
@@ -120,6 +134,7 @@
     <b-modal v-model="cardmodalShow"  size="xl" centered :title="titles[dblclicknm]" ok-only>
       <okiba :cardsname="dblclicknm" :cardwidth=100></okiba>
     </b-modal>
+
   </div>
 </template>
 
@@ -137,10 +152,11 @@ export default {
     components: { cardokiba , okiba, draggable,cardimg},
     data: () => ({
 	maisuu : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+	negaiboshi:5,
 	yamafudatomy : 1,
 	yamafudatoside : 6,
 	modalShow: false,
-	cardmodalShow: false,	
+cardmodalShow: false,
 	options: {
             group: "myGroup",
             animation: 200

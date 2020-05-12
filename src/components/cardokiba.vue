@@ -73,11 +73,4 @@ export default {
   .item:active {
     cursor: grabbing;
   }
-  .sortable-chosen {
-      opacity: 0.7;
-      background-color:#dcdcdc;
-  }  
- .sortable-ghost {
-      background-color:#dcdcdc;
-  }  
 </style>
