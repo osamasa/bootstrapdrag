@@ -25,14 +25,16 @@
 	    </b-col>
 	  </b-row>
 	  <b-row v-if="hasSelectedCard">
-	    <b-col>
+    <b-col>
+      <b-input-group>
 	      <b-form-select
 		v-model="selecdeck"
 		:options=getDeckNames
-		></b-form-select>
-	    </b-col>	  	  
-	    <b-col>
-	      <b-button  size="sm" variant="primary" @click="moveSelectedCard({'from':cardsname  ,'out': selecdeck,'rev':selectrev[selecdeck]});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':selectura[selecdeck]});allUnSelected({'name':selecdeck});doWithShufftle();cardmodalShow=!cardmodalShow">移動</b-button>
+    ></b-form-select>
+	<b-input-group-append>    
+    <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':cardsname  ,'out': selecdeck,'rev':selectrev[selecdeck]});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':selectura[selecdeck]});allUnSelected({'name':selecdeck});doWithShufftle();cardmodalShow=!cardmodalShow">移動</b-button>
+    </b-input-group-append>
+    </b-input-group>
 	    </b-col >
 	    <b-col cols="6" v-if="cardsname==='deckcards'">
 	      <b-form-checkbox
