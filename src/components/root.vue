@@ -15,7 +15,9 @@
 	</small></b-col>
 	<b-col>
 	  <b-row class="h-50">
-	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false">山札({{deckcards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='deckcards'">OPEN</b-button></draggable></small></b-col>
+	    <b-col class="zoomable bg-light border"><small class="text-muted">
+	    	<draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false">山札({{deckcards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='deckcards'">OPEN</b-button></draggable>
+	    </small></b-col>
 	  </b-row>
 	  <b-row class="h-50">
 	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="sidecards" group="myGroup" @start="drag=true" @end="drag=false">サイド({{sidecards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='sidecards'">OPEN</b-button></draggable></small></b-col>
