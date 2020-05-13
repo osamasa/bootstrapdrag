@@ -31,15 +31,19 @@ export default {
 
             },
 	    setternames: {
-		'mycards' : 'setMyCards',
+		'deckcards' : 'setDeckCards',
+		'battlecards' : 'setBattleCards',
 		'bench1cards' : 'setBench1Cards',
 		'bench2cards' : 'setBench2Cards',
 		'bench3cards' : 'setBench3Cards',
 		'bench4cards' : 'setBench4Cards',		
 		'bench5cards' : 'setBench5Cards',
-		'battlecards' : 'setBattleCards',
+		'lostzonecards' : 'setLostzoneCards',
+		'trashcards' : 'setTrashCards',
+		'mycards' : 'setMyCards',
+		'sidecards' : 'setSideCards',
 		'studiumscards' : 'setStudiumsCards'	
-	    }
+	    }	    
         }
     },
     computed: {

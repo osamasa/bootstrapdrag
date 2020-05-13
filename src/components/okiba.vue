@@ -1,6 +1,6 @@
 <template>
   <div>      
-    <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true" @end="drag=false">{{title}}({{innerMycarditems.length}})
+    <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true" @end="drag=false">{{nottile && innerMycarditems.length > 0 ? '' : this.title}}{{nottile ? '' : '(' + innerMycarditems.length + ')'}}
       <b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow">OPEN
       </b-button>
     </draggable>
@@ -71,7 +71,8 @@ export default {
     props: {
 	'cardsname': String,
 	'title': String,
-	'cardwidth': Number
+	'cardwidth': Number,
+	'nottile' : Boolean
     },
     
     data () {
@@ -109,6 +110,7 @@ export default {
 		'lostzonecards' : 'setLostzoneCards',
 		'trashcards' : 'setTrashCards',
 		'mycards' : 'setMyCards',
+		'sidecards' : 'setSideCards',		
 		'studiumscards' : 'setStudiumsCards'	
 	    },
 	    selectrev: {

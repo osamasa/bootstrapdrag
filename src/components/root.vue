@@ -4,25 +4,25 @@
       <b-row style='height: 130px'>
 	<b-col class="bg-light border">
 	  <small class="text-muted">
-	    <cardokiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=20></cardokiba>
-	    <okiba cardsname="battlecards" title="" :cardwidth=100></okiba>
+	    <cardokiba cardsname="battlecards" :cardwidth=20></cardokiba>
+	    <okiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100></okiba>
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">    
-	    <cardokiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=60></cardokiba>
-	    <okiba cardsname="studiumscards" title="" :cardwidth=100></okiba>	    
+	    <cardokiba cardsname="studiumscards"  :cardwidth=60></cardokiba>
+	    <okiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=100></okiba>	    
 	</small></b-col>
 	<b-col>
 	  <b-row class="h-50">
 	    <b-col class="zoomable bg-light border"><small class="text-muted">
-		<okiba cardsname="deckcards" title="山札" :cardwidth=100></okiba>
+		<okiba cardsname="deckcards" :nottile=false title="山札" :cardwidth=100></okiba>
 	    </small></b-col>
 	  </b-row>
 	  <b-row class="h-50">
 	    <b-col class="zoomable bg-light border">
 	      <small class="text-muted">
-		<okiba cardsname="sidecards" title="サイド" :cardwidth=100></okiba>
+		<okiba cardsname="sidecards" :nottile=false title="サイド" :cardwidth=100></okiba>
 	    </small></b-col>
 	  </b-row>
 	</b-col>
@@ -30,12 +30,12 @@
 	  <b-row class="h-50">    
 	    <b-col class="zoomable bg-light border">
 	      <small class="text-muted">
-		<okiba cardsname="trashcards" title="トラッシュ" :cardwidth=100></okiba>
+		<okiba cardsname="trashcards" :nottile=false title="トラッシュ" :cardwidth=100></okiba>
 	    </small></b-col>
 	  </b-row>
 	  <b-row class="h-50">    
 	    <b-col class="zoomable bg-light border"><small class="text-muted">
-		<okiba cardsname="lostzonecards" title="ロストゾーン" :cardwidth=100></okiba>		
+		<okiba cardsname="lostzonecards" :nottile=false title="ロストゾーン" :cardwidth=100></okiba>		
 	    </small></b-col>
 	  </b-row>
 	</b-col>
@@ -43,39 +43,39 @@
       <b-row style='height: 140px'>
 	<b-col class="bg-light border">
 	  <small class="text-muted">
-	    <cardokiba cardsname="bench1cards" :nottile=true title="ベンチ1" :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench1cards" title="" :cardwidth=100></okiba>
+	    <cardokiba cardsname="bench1cards" :cardwidth=20></cardokiba>
+	    <okiba cardsname="bench1cards" :nottile=true title="ベンチ1"  :cardwidth=100></okiba>
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">    
-	    <cardokiba cardsname="bench2cards" :nottile=true title="ベンチ2" :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench2cards" title="" :cardwidth=100></okiba>	    
+	    <cardokiba cardsname="bench2cards"  :cardwidth=20></cardokiba>
+	    <okiba cardsname="bench2cards" :nottile=true title="ベンチ2"  :cardwidth=100></okiba>	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">        
-	    <cardokiba cardsname="bench3cards" :nottile=true title="ベンチ3" :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench3cards" title="" :cardwidth=100></okiba>	    	    
+	    <cardokiba cardsname="bench3cards" :cardwidth=20></cardokiba>
+	    <okiba cardsname="bench3cards" :nottile=true title="ベンチ3"  :cardwidth=100></okiba>	    	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">            
-	    <cardokiba cardsname="bench4cards" :nottile=true title="ベンチ4" :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench4cards" title="" :cardwidth=100></okiba>	    	    	    
+	    <cardokiba cardsname="bench4cards"  :cardwidth=20></cardokiba>
+	    <okiba cardsname="bench4cards" :nottile=true title="ベンチ4" :cardwidth=100></okiba>	    	    	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">
-	    <cardokiba cardsname="bench5cards" :nottile=true title="ベンチ5" :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench5cards" title="" :cardwidth=100></okiba>		  </small>
+	    <cardokiba cardsname="bench5cards" :cardwidth=20></cardokiba>
+	    <okiba cardsname="bench5cards"  :nottile=true title="ベンチ5" :cardwidth=100></okiba>		  </small>
 	</b-col>	
       </b-row>
       <b-row class="row item">
 	<b-col>
 	  <small class="text-muted">
-	    <okiba cardsname="mycards" title="手札" :cardwidth=100></okiba>
-	    <cardokiba cardsname="mycards":cardwidth=60></cardokiba>
+	    <okiba cardsname="mycards" :nottile=false title="手札" :cardwidth=100></okiba>
+	    <cardokiba cardsname="mycards" :cardwidth=60></cardokiba>
 	  </small>
 	</b-col>
       </b-row>    
@@ -164,21 +164,7 @@ export default {
 	options: {
             group: "myGroup",
             animation: 200
-        },
-	titles : {
-	    'battlecards' : 'バトル場のカードを選択し移動',
-	    'studiumscards' : 'スタジアムのカードを選択し移動',	    
-	    'mycards' : '手札のカードを選択し移動',
-	    'bench1cards' : 'ベンチ１のカードを選択し移動',
-	    'bench2cards' : 'ベンチ２のカードを選択し移動',
-	    'bench3cards' : 'ベンチ３のカードを選択し移動',
-	    'bench4cards' : 'ベンチ４のカードを選択し移動',
-	    'bench5cards' : 'ベンチ５のカードを選択し移動',	    
-	    'deckcards' : '山札のカードを選択し移動',
-	    'sidecards' : 'サイドのカードを選択し移動',
-	    'lostzonecards' : 'ロストゾーンのカードを選択し移動',
-	    'trashcards' : 'トラッシュのカードを選択し移動'
-	}
+        }
     }),
     created() {
 	this.getPockemonJsonAction();
@@ -204,104 +190,6 @@ export default {
 	deckShuffleCards : function() {
 	    this.$store.commit('setDeckCards',CardClass.shuffleCards(this.$store.getters.getDeckCards));
 	}
-    },
-    computed: {
-	deckcd : {
-	     get() {
-		 return this.$store.state.deckcd;
-	     },
-	     set(value) {
-		 this.$store.commit('setDeckcd',value);
-	     }
-	},
-	deckcards : {
-	     get() {
-		 return this.$store.state.deckcards;
-	     },
-	     set(value) {
-		 this.$store.commit('setDeckCards',value);
-	     }
-	},
-	lostzonecards : {
-	    get() {
-		return this.$store.state.lostzonecards;
-	     },
-	     set(value) {
-		 this.$store.commit('setLostzoneCards',value);
-	     }
-	},
-	trashcards : {
-	     get() {
-		 return this.$store.state.trashcards;
-	     },
-	     set(value) {
-		 this.$store.commit('setTrashCards',value);
-	     }
-	},
-	sidecards : {
-	     get() {
-		 return this.$store.state.sidecards;
-	     },
-	     set(value) {
-		 this.$store.commit('setSideCards',value);
-	     }
-	},
-	battlecards : {
-	     get() {
-		 return this.$store.state.battlecards;
-	     },
-	     set(value) {
-		 this.$store.commit('setBattleCards',value);
-	     }
-	},
-	studiumscards : {
-	     get() {
-		 return this.$store.state.studiumscards;
-	     },
-	     set(value) {
-		 this.$store.commit('setStudiumsCards',value);
-	     }
-	},
-	bench1cards : {
-	     get() {
-		 return this.$store.state.bench1cards;
-	     },
-	     set(value) {
-		 this.$store.commit('setBench1Cards',value);
-	     }
-	},
-	bench2cards : {
-	     get() {
-		 return this.$store.state.bench2cards;
-	     },
-	     set(value) {
-		 this.$store.commit('setBench2Cards',value);
-	     }
-	},
-	bench3cards : {
-	     get() {
-		 return this.$store.state.bench3cards;
-	     },
-	     set(value) {
-		 this.$store.commit('setBench3Cards',value);
-	     }
-	},
-	bench4cards : {
-	     get() {
-		 return this.$store.state.bench4cards;
-	     },
-	     set(value) {
-		 this.$store.commit('setBench4Cards',value);
-	     }
-	},
-	bench5cards : {
-	     get() {
-		 return this.$store.state.bench5cards;
-	     },
-	     set(value) {
-		 this.$store.commit('setBench5Cards',value);
-	     }
-	},  						
     }
 }
 </script>
