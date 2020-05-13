@@ -5,30 +5,38 @@
 	<b-col class="bg-light border">
 	  <small class="text-muted">
 	    <cardokiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=20></cardokiba>
-	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='battlecards'" size="sm">OPEN</b-button>	    
+	    <okiba cardsname="battlecards" title="" :cardwidth=100></okiba>
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">    
 	    <cardokiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=60></cardokiba>
-	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='studiumscards'" size="sm">OPEN</b-button>	    
+	    <okiba cardsname="studiumscards" title="" :cardwidth=100></okiba>	    
 	</small></b-col>
 	<b-col>
 	  <b-row class="h-50">
 	    <b-col class="zoomable bg-light border"><small class="text-muted">
-	    	<draggable v-model="deckcards" group="myGroup" @start="drag=true" @end="drag=false">山札({{deckcards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='deckcards'">OPEN</b-button></draggable>
+		<okiba cardsname="deckcards" title="山札" :cardwidth=100></okiba>
 	    </small></b-col>
 	  </b-row>
 	  <b-row class="h-50">
-	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="sidecards" group="myGroup" @start="drag=true" @end="drag=false">サイド({{sidecards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='sidecards'">OPEN</b-button></draggable></small></b-col>
+	    <b-col class="zoomable bg-light border">
+	      <small class="text-muted">
+		<okiba cardsname="sidecards" title="サイド" :cardwidth=100></okiba>
+	    </small></b-col>
 	  </b-row>
 	</b-col>
 	<b-col>
 	  <b-row class="h-50">    
-	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="trashcards" group="myGroup" @start="drag=true" @end="drag=false">ﾄﾗｯｼｭ({{trashcards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='trashcards'">OPEN</b-button></draggable></small></b-col>
+	    <b-col class="zoomable bg-light border">
+	      <small class="text-muted">
+		<okiba cardsname="trashcards" title="トラッシュ" :cardwidth=100></okiba>
+	    </small></b-col>
 	  </b-row>
 	  <b-row class="h-50">    
-	    <b-col class="zoomable bg-light border"><small class="text-muted"><draggable v-model="lostzonecards" group="myGroup" @start="drag=true" @end="drag=false">ﾛｽﾄｿﾞｰﾝ({{lostzonecards.length}})<b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='lostzonecards'">OPEN</b-button></draggable></small></b-col>
+	    <b-col class="zoomable bg-light border"><small class="text-muted">
+		<okiba cardsname="lostzonecards" title="ロストゾーン" :cardwidth=100></okiba>		
+	    </small></b-col>
 	  </b-row>
 	</b-col>
       </b-row>      
@@ -36,38 +44,37 @@
 	<b-col class="bg-light border">
 	  <small class="text-muted">
 	    <cardokiba cardsname="bench1cards" :nottile=true title="ベンチ1" :cardwidth=20></cardokiba>
-	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench1cards'" size="sm">OPEN</b-button>
+	    <okiba cardsname="bench1cards" title="" :cardwidth=100></okiba>
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">    
 	    <cardokiba cardsname="bench2cards" :nottile=true title="ベンチ2" :cardwidth=20></cardokiba>
-	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench2cards'" size="sm">OPEN</b-button>
+	    <okiba cardsname="bench2cards" title="" :cardwidth=100></okiba>	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">        
 	    <cardokiba cardsname="bench3cards" :nottile=true title="ベンチ3" :cardwidth=20></cardokiba>
-	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench3cards'" size="sm">OPEN</b-button>
+	    <okiba cardsname="bench3cards" title="" :cardwidth=100></okiba>	    	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">            
 	    <cardokiba cardsname="bench4cards" :nottile=true title="ベンチ4" :cardwidth=20></cardokiba>
-	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench4cards'" size="sm">OPEN</b-button>
+	    <okiba cardsname="bench4cards" title="" :cardwidth=100></okiba>	    	    	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
-	  <small class="text-muted">                
+	  <small class="text-muted">
 	    <cardokiba cardsname="bench5cards" :nottile=true title="ベンチ5" :cardwidth=20></cardokiba>
-	    <b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='bench5cards'" size="sm">OPEN</b-button>
-	  </small>
+	    <okiba cardsname="bench5cards" title="" :cardwidth=100></okiba>		  </small>
 	</b-col>	
       </b-row>
       <b-row class="row item">
 	<b-col>
-    <small class="text-muted">
-    手札&nbsp;<b-button variant="outline-primary" @click="cardmodalShow=!cardmodalShow;dblclicknm='mycards'" size="sm">OPEN</b-button>
+	  <small class="text-muted">
+	    <okiba cardsname="mycards" title="手札" :cardwidth=100></okiba>
 	    <cardokiba cardsname="mycards":cardwidth=60></cardokiba>
 	  </small>
 	</b-col>
@@ -111,7 +118,7 @@
 	      ></b-form-select>
 	  </b-col>
 	  <b-col>
-	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':negaiboshi});setSelectedCardsProp({'name':'deckcards', 'ura':false});allUnSelected({'name':'deckcards'});cardmodalShow=!cardmodalShow;dblclicknm='deckcards';modalShow=!modalShow" class="btn btn-outline-primary btn-lg btn-block">枚山札を開く（ねがいぼし）</button>
+	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':negaiboshi});setSelectedCardsProp({'name':'deckcards', 'ura':false});allUnSelected({'name':'deckcards'});setCardmodalShow({'name':'deckcards', 'value':true});modalShow=!modalShow" class="btn btn-outline-primary btn-lg btn-block">枚山札を開く（ねがいぼし）</button>
 	  </b-col>
 	</b-row>	
 	
@@ -133,10 +140,6 @@
 	</b-row>
       </b-container>
     </b-modal>
-    <b-modal v-model="cardmodalShow"  size="xl" centered :title="titles[dblclicknm]" ok-only>
-      <okiba :cardsname="dblclicknm" :cardwidth=100></okiba>
-    </b-modal>
-
   </div>
 </template>
 
@@ -158,7 +161,6 @@ export default {
 	yamafudatomy : 1,
 	yamafudatoside : 6,
 	modalShow: false,
-	cardmodalShow: false,
 	options: {
             group: "myGroup",
             animation: 200
@@ -188,7 +190,8 @@ export default {
 	    'moveSelectedCard',
 	    'selectCardFromTop',
 	    'setSelectedCardsProp',
-	    'allOmote'
+	    'allOmote',
+	    'setCardmodalShow'
 	]),
 	...mapActions([
 	    'getPockemonJsonAction',
@@ -200,7 +203,7 @@ export default {
 	},
 	deckShuffleCards : function() {
 	    this.$store.commit('setDeckCards',CardClass.shuffleCards(this.$store.getters.getDeckCards));
-	}	
+	}
     },
     computed: {
 	deckcd : {
@@ -210,14 +213,6 @@ export default {
 	     set(value) {
 		 this.$store.commit('setDeckcd',value);
 	     }
-	},
-	dblclicknm : {
-	    get() {
-		return this.$store.state.dblclicknm;
-	    },
-	    set(value) {
-		this.$store.commit('setDblclicknm',value);
-	    }
 	},
 	deckcards : {
 	     get() {

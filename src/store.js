@@ -7,6 +7,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+	cardmodalShow: {
+	    'deckcards': false,
+	    'battlecards': false,
+	    'bench1cards': false,
+	    'bench2cards': false,
+	    'bench3cards': false,
+	    'bench4cards': false,
+	    'bench5cards': false,
+	    'lostzonecards': false,
+	    'trashcards': false,
+	    'mycards': false,
+	    'studiumscards': false,
+	    'sidecards': false
+	},
 	isLoading: false,	
 	deckcards : [],
 	battlecards: [],
@@ -21,11 +35,10 @@ export default new Vuex.Store({
 	studiumscards : [],
 	sidecards:[],
 	deckcd: '6H6ggn-GcjdrT-LQnnHg',
-	dblclicknm : '',
     },
     getters: {
-	getDblclicknm: (state) => {
-	    return state.dblclicknm;
+	getCardmodalShow: (state) => (prop) => {
+	    return state.cardmodalShow[prop];
 	},
 	getIsLoading: (state) => {
 	    return state.isLoading;
@@ -71,9 +84,9 @@ export default new Vuex.Store({
 	}
     },    
     mutations: {
-	setDblclicknm: (state,payload) => {
-	    state.dblclicknm = payload;
-	},
+	setCardmodalShow: (state,payload) => {
+	    state.cardmodalShow[payload.name] = payload.value;
+	},	
 	setIsLoading: (state,payload) => {
 	    state.isLoading = payload;
 	},	
