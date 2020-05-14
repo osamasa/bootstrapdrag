@@ -21,6 +21,49 @@ export default new Vuex.Store({
 	    'studiumscards': false,
 	    'sidecards': false
 	},
+	    selectrev: {
+		'deckcards' : true,
+		'battlecards' : false,
+		'bench1cards' : false, 
+		'bench2cards' : false,
+		'bench3cards' : false,
+		'bench4cards' : false,
+		'bench5cards' : false,
+		'lostzonecards' : false,
+		'trashcards' : false,
+		'mycards' : false,
+		'sidecards' : false,
+		'studiumscards' : false
+	    },
+	    selectura: {
+		'deckcards' : true,
+		'battlecards' : false,
+		'bench1cards' : false, 
+		'bench2cards' : false,
+		'bench3cards' : false,
+		'bench4cards' : false,
+		'bench5cards' : false,
+		'lostzonecards' : false,
+		'trashcards' : false,
+		'mycards' : false,
+		'sidecards' : true,
+		'studiumscards' : false
+	    },
+	moveabeldecknames : [
+		{ value: 'deckcards', text: '山札へ' },
+		{ value: 'sidecards', text: 'サイドへ' },
+		{ value: 'studiumscards', text: 'スタジアムへ' },
+		{ value: 'battlecards', text: 'バトル場へ' },
+		{ value: 'lostzonecards', text: 'ロストゾーンへ' },
+		{ value: 'trashcards', text: 'トラッシュへ' },
+		{ value: 'bench1cards', text: 'ベンチ１へ' },
+		{ value: 'bench2cards', text: 'ベンチ２へ' },
+		{ value: 'bench3cards', text: 'ベンチ３へ' },
+		{ value: 'bench4cards', text: 'ベンチ４へ' },
+		{ value: 'bench5cards', text: 'ベンチ５へ' },
+		{ value: 'mycards', text: '手札へ' }
+		    ],
+
 	isLoading: false,	
 	deckcards : [],
 	battlecards: [],
@@ -37,8 +80,20 @@ export default new Vuex.Store({
 	deckcd: '6H6ggn-GcjdrT-LQnnHg',
     },
     getters: {
+	getMoveabeldeckNames: (state) => (prop) => {
+	    const self_cardsname = prop;
+	    let ret = [];
+	    ret = state.moveabeldecknames.filter( hashv => hashv.value !== self_cardsname );
+	    return ret;
+	},		
 	getCardmodalShow: (state) => (prop) => {
 	    return state.cardmodalShow[prop];
+	},
+	getSelectrev:  (state) => (prop) => {
+	    return state.selectrev[prop];
+	},
+	getSelectura:  (state) => (prop) => {
+	    return state.selectura[prop];
 	},
 	getIsLoading: (state) => {
 	    return state.isLoading;
@@ -257,7 +312,7 @@ export default new Vuex.Store({
 		console.log(e);
 		context.commit( 'setIsLoading',false);
 	    });
-	},	
+	}
 
   }
 })

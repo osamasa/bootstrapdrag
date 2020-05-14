@@ -93,16 +93,16 @@
       <b-input-group>
 	      <b-form-select
 		v-model="selecdeck"
-		:options=getDeckNames
+		:options="getMoveabeldeckNames('mycards')"
     ></b-form-select>
 	<b-input-group-append>    
-    <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':'mycards' ,'out': selecdeck,'rev':selectrev[selecdeck]});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':selectura[selecdeck]});allUnSelected({'name':selecdeck})">移動</b-button>
+    <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':'mycards' ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck})">移動</b-button>
     </b-input-group-append>
     </b-input-group>
 	    </b-col>	    
 	  </b-row>      	    
 	  <b-row>      
-	    <tefuda cardsname="mycards" :cardwidth=60></tefuda>
+	    <tefuda :cardwidth=60></tefuda>
 	  </b-row>    	    
 	</b-col>
       </b-row>
@@ -193,35 +193,8 @@ export default {
 	options: {
             group: "myGroup",
             animation: 200
-        },
-	    selectrev: {
-		'deckcards' : true,
-		'battlecards' : false,
-		'bench1cards' : false, 
-		'bench2cards' : false,
-		'bench3cards' : false,
-		'bench4cards' : false,
-		'bench5cards' : false,
-		'lostzonecards' : false,
-		'trashcards' : false,
-		'mycards' : false,
-		'sidecards' : false,
-		'studiumscards' : false
-	    },
-	    selectura: {
-		'deckcards' : true,
-		'battlecards' : false,
-		'bench1cards' : false, 
-		'bench2cards' : false,
-		'bench3cards' : false,
-		'bench4cards' : false,
-		'bench5cards' : false,
-		'lostzonecards' : false,
-		'trashcards' : false,
-		'mycards' : false,
-		'sidecards' : true,
-		'studiumscards' : false
-	    }	 	    	
+        }
+
     }),
     created() {
 	this.getPockemonJsonAction();
@@ -249,29 +222,13 @@ export default {
 	}
     },
     computed: {
+	...mapGetters([
+	    'getSelectrev',
+	    'getSelectura',
+	    'getMoveabeldeckNames'
+	]),
 	hasSelectedCard : function() {
 	    return CardClass.hasSelectedCard(this.$store.state['mycards'])
-	},
-	getDeckNames: function() {
-	    const self_cardsname = 'mycards';
-	    let ret = [];
-	    const tmp = [
-		{ value: 'deckcards', text: '山札へ' },
-		{ value: 'sidecards', text: 'サイドへ' },
-		{ value: 'studiumscards', text: 'スタジアムへ' },
-		{ value: 'battlecards', text: 'バトル場へ' },
-		{ value: 'lostzonecards', text: 'ロストゾーンへ' },
-		{ value: 'trashcards', text: 'トラッシュへ' },
-		{ value: 'bench1cards', text: 'ベンチ１へ' },
-		{ value: 'bench2cards', text: 'ベンチ２へ' },
-		{ value: 'bench3cards', text: 'ベンチ３へ' },
-		{ value: 'bench4cards', text: 'ベンチ４へ' },
-		{ value: 'bench5cards', text: 'ベンチ５へ' },
-		{ value: 'mycards', text: '手札へ' }
-	    ]
-	    ret = tmp.filter( hashv => hashv.value !== self_cardsname );
-
-	    return ret;
 	}
     }
 }
