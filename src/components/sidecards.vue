@@ -88,18 +88,3 @@ export default {
     },
 }
 </script>
-
-<style>
-  .itemcard {
-    display: inline-block;
-    margin: 1px;
-    padding: 1px;
-    background-color: #ffffff;
-  }
-  .item:hover {
-    cursor: grab;
-  }
-  .item:active {
-    cursor: grabbing;
-  }
-</style>

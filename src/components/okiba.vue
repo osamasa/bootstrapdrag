@@ -214,10 +214,4 @@ export default {
     padding: 1px;
     background-color: #ffffff;
   }
-  .item:hover {
-    cursor: grab;
-  }
-  .item:active {
-    cursor: grabbing;
-  }
 </style>

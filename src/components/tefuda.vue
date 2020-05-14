@@ -2,19 +2,19 @@
   <div>{{nottile && innerMycarditems.length > 0 ? '' : this.title}}
      <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false" :options="options" >
       <div class="itemcard m-0" v-for="(item,index) in innerMycarditems" :key="item.id">
-      	<cardimg :cardwidth="cardwidth" :card="item"></cardimg></div>
+      	<selectablecardimg :cardwidth="cardwidth" :card="item"></selectablecardimg></div>
      </draggable>
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
-import cardimg from './cardimg'
+import selectablecardimg from './selectablecardimg'
 
 export default {
     name: "cardokiba",
 
-    components: { draggable, cardimg},
+    components: { draggable, selectablecardimg},
 
     props: {
         'nottile' : Boolean,
@@ -65,11 +65,5 @@ export default {
     margin: 1px;
     padding: 1px;
     background-color: #ffffff;
-  }
-  .item:hover {
-    cursor: grab;
-  }
-  .item:active {
-    cursor: grabbing;
   }
 </style>

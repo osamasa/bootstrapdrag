@@ -1,11 +1,9 @@
 <template>
   <div class="position-relative itemcard m-0">
-
     <div :style="{'left' : (innerMycarditems.length-1)*10-10*index + 'px', 'top': '-5px', 'Z-index' : (100-index)}" class="position-absolute" v-for="index of innerMycarditems.length" :key="index">
       <cardimg  :cardwidth="cardwidth" :card="innerMycarditems[innerMycarditems.length-index]" :index="index">
       </cardimg>
     </div>
-
   </div>
 </template>
 
@@ -67,11 +65,5 @@ export default {
     margin: 1px;
     padding: 1px;
     background-color: #ffffff;
-  }
-  .item:hover {
-    cursor: grab;
-  }
-  .item:active {
-    cursor: grabbing;
   }
 </style>
