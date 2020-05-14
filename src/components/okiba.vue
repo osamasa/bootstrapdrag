@@ -49,9 +49,11 @@
 	    </b-col>	
 	  </b-row>
 	</div>
+     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false" :options="options" >	
 	<div class="itemcard m-0" v-for="(item,index) in innerMycarditems" :key="item.id">
 	  <selectablecardimg :cardwidth="cardwidth" :card="item"></selectablecardimg>
 	</div>
+	</draggable>
       </div>
     </b-modal>
   </div>    

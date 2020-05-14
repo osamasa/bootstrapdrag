@@ -1,11 +1,9 @@
 <template>
-  <div class="position-relative itemcard m-0">
-
-    <div :style="{'left' : (innerMycarditems.length-1)*10-10*index + 'px', 'top': '-5px', 'Z-index' : (100-index)}" class="position-absolute" v-for="index of innerMycarditems.length" :key="index">
-      <cardimg  :cardwidth="cardwidth" :card="innerMycarditems[innerMycarditems.length-index]" :index="index">
-      </cardimg>
-    </div>
-
+  <div>{{nottile && innerMycarditems.length > 0 ? '' : this.title}}
+     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false" :options="options" >
+      <div class="itemcard m-0" v-for="(item,index) in innerMycarditems" :key="item.id">
+      	<cardimg :cardwidth="cardwidth" :card="item"></cardimg></div>
+     </draggable>
   </div>
 </template>
 
@@ -51,10 +49,10 @@ export default {
     computed: {
     	innerMycarditems : {
 	    get() {
-		return this.$store.state[this.cardsname];
+		 return this.$store.state[this.cardsname];
 	     },
 	    set(value) {
-		this.$store.commit(this.setternames[this.cardsname], value);
+		this.$store.commit(this.setternames[this.cardsname],value)
 	     }
 	}
     }	

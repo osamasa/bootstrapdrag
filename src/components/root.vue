@@ -3,15 +3,15 @@
     <b-container>
       <b-row style='height: 130px'>
 	<b-col class="bg-light border">
-	  <small class="text-muted">
-	    <cardokiba cardsname="battlecards" :cardwidth=20></cardokiba>
-	    <okiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100></okiba>
-	  </small>
-	</b-col>
+	  <small class="text-muted">    	  
+	  <okiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100></okiba>
+	  <cardokiba cardsname="battlecards" :cardwidth=60></cardokiba>	  
+	</small></b-col>
+
 	<b-col class="bg-light border">
 	  <small class="text-muted">    
-	    <cardokiba cardsname="studiumscards"  :cardwidth=60></cardokiba>
-	    <okiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=100></okiba>	    
+	    <okiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=100></okiba>
+	    <cardokiba cardsname="studiumscards" :cardwidth=60></cardokiba>	    
 	</small></b-col>
 	<b-col>
 	  <b-row class="h-50">
@@ -43,39 +43,45 @@
       <b-row style='height: 140px'>
 	<b-col class="bg-light border">
 	  <small class="text-muted">
-	    <cardokiba cardsname="bench1cards" :cardwidth=20></cardokiba>
+
 	    <okiba cardsname="bench1cards" :nottile=true title="ベンチ1"  :cardwidth=100></okiba>
+	    <cardokiba cardsname="bench1cards" :cardwidth=60></cardokiba>	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">    
-	    <cardokiba cardsname="bench2cards"  :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench2cards" :nottile=true title="ベンチ2"  :cardwidth=100></okiba>	    
+
+	    <okiba cardsname="bench2cards" :nottile=true title="ベンチ2"  :cardwidth=100></okiba>
+	    <cardokiba cardsname="bench2cards"  :cardwidth=60></cardokiba>	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">        
-	    <cardokiba cardsname="bench3cards" :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench3cards" :nottile=true title="ベンチ3"  :cardwidth=100></okiba>	    	    
+
+	    <okiba cardsname="bench3cards" :nottile=true title="ベンチ3"  :cardwidth=100></okiba>
+	    <cardokiba cardsname="bench3cards" :cardwidth=60></cardokiba>	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">            
-	    <cardokiba cardsname="bench4cards"  :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench4cards" :nottile=true title="ベンチ4" :cardwidth=100></okiba>	    	    	    
+
+	    <okiba cardsname="bench4cards" :nottile=true title="ベンチ4" :cardwidth=100></okiba>
+	    <cardokiba cardsname="bench4cards"  :cardwidth=60></cardokiba>	    
 	  </small>
 	</b-col>
 	<b-col class="bg-light border">
 	  <small class="text-muted">
-	    <cardokiba cardsname="bench5cards" :cardwidth=20></cardokiba>
-	    <okiba cardsname="bench5cards"  :nottile=true title="ベンチ5" :cardwidth=100></okiba>		  </small>
+
+	    <okiba cardsname="bench5cards"  :nottile=true title="ベンチ5" :cardwidth=100></okiba>
+	    	    <cardokiba cardsname="bench5cards" :cardwidth=60></cardokiba>
+	    </small>
 	</b-col>	
       </b-row>
       <b-row class="row item">
 	<b-col>
 	  <small class="text-muted">
 	    <okiba cardsname="mycards" :nottile=false title="手札" :cardwidth=100></okiba>
-	    <cardokiba cardsname="mycards" :cardwidth=60></cardokiba>
+	    <tefuda cardsname="mycards" :cardwidth=60></tefuda>
 	  </small>
 	</b-col>
       </b-row>    
@@ -145,6 +151,7 @@
 
 <script>
 import cardokiba from './cardokiba'
+import tefuda from './tefuda'
 import okiba from './okiba'
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
@@ -154,7 +161,7 @@ import cardimg from './cardimg'
 import { CardClass } from '../PokemonCard.js'
 export default {
     name: "root",
-    components: { cardokiba , okiba, draggable,cardimg},
+    components: { cardokiba , tefuda, okiba, draggable,cardimg},
     data: () => ({
 	maisuu : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
 	negaiboshi:5,
