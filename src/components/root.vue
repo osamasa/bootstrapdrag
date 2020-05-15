@@ -2,25 +2,25 @@
   <div>
     <b-container>
       <b-row style='height: 130px'>
-	<b-col class="bg-light border">
+	<b-col @click="setCardmodalShow({'name':'battlecards', 'value':true});" class="bg-light border">
 	  <small class="text-muted">    	  
 	  <okiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100></okiba>
 	  <cardokiba cardsname="battlecards" :cardwidth=60></cardokiba>	  
 	</small></b-col>
 
-	<b-col class="bg-light border">
+	<b-col @click="setCardmodalShow({'name':'studiumscards', 'value':true});" class="bg-light border">
 	  <small class="text-muted">    
 	    <okiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=100></okiba>
 	    <cardokiba cardsname="studiumscards" :cardwidth=60></cardokiba>	    
 	</small></b-col>
 	<b-col>
 	  <b-row class="h-50">
-	    <b-col class="zoomable bg-light border"><small class="text-muted">
+	    <b-col @click="setCardmodalShow({'name':'deckcards', 'value':true});" class="zoomable bg-light border"><small class="text-muted">
 		<okiba cardsname="deckcards" :nottile=false title="山札" :cardwidth=100></okiba>
 	    </small></b-col>
 	  </b-row>
 	  <b-row class="h-50">
-	    <b-col class="zoomable bg-light border">
+	    <b-col @click="setCardmodalShow({'name':'sidecards', 'value':true});" class="zoomable bg-light border">
 	      <small class="text-muted">
 		<okiba cardsname="sidecards" :nottile=false title="サイド" :cardwidth=100></okiba>
 	    </small></b-col>
@@ -28,48 +28,47 @@
 	</b-col>
 	<b-col>
 	  <b-row class="h-50">    
-	    <b-col class="zoomable bg-light border">
+	    <b-col @click="setCardmodalShow({'name':'trashcards', 'value':true});" class="zoomable bg-light border">
 	      <small class="text-muted">
 		<okiba cardsname="trashcards" :nottile=false title="トラッシュ" :cardwidth=100></okiba>
 	    </small></b-col>
 	  </b-row>
 	  <b-row class="h-50">    
-	    <b-col class="zoomable bg-light border"><small class="text-muted">
+	    <b-col @click="setCardmodalShow({'name':'lostzonecards', 'value':true});" class="zoomable bg-light border"><small class="text-muted">
 		<okiba cardsname="lostzonecards" :nottile=false title="ロストゾーン" :cardwidth=100></okiba>		
 	    </small></b-col>
 	  </b-row>
 	</b-col>
-      </b-row>      
+      </b-row>
       <b-row style='height: 140px'>
-	<b-col class="bg-light border">
+	<b-col class="bg-light border" @click="setCardmodalShow({'name':'bench1cards', 'value':true});">
 	  <small class="text-muted">
-
 	    <okiba cardsname="bench1cards" :nottile=true title="ベンチ1"  :cardwidth=100></okiba>
-	    <cardokiba cardsname="bench1cards" :cardwidth=60></cardokiba>	    
+	    <cardokiba cardsname="bench1cards" :cardwidth=60></cardokiba>
 	  </small>
 	</b-col>
-	<b-col class="bg-light border">
+	<b-col @click="setCardmodalShow({'name':'bench2cards', 'value':true});" class="bg-light border">
 	  <small class="text-muted">    
 
-	    <okiba cardsname="bench2cards" :nottile=true title="ベンチ2"  :cardwidth=100></okiba>
+	    <okiba  cardsname="bench2cards" :nottile=true title="ベンチ2"  :cardwidth=100></okiba>
 	    <cardokiba cardsname="bench2cards"  :cardwidth=60></cardokiba>	    
 	  </small>
 	</b-col>
-	<b-col class="bg-light border">
+	<b-col @click="setCardmodalShow({'name':'bench3cards', 'value':true});" class="bg-light border">
 	  <small class="text-muted">        
 
 	    <okiba cardsname="bench3cards" :nottile=true title="ベンチ3"  :cardwidth=100></okiba>
 	    <cardokiba cardsname="bench3cards" :cardwidth=60></cardokiba>	    
 	  </small>
 	</b-col>
-	<b-col class="bg-light border">
+	<b-col @click="setCardmodalShow({'name':'bench4cards', 'value':true});" class="bg-light border">
 	  <small class="text-muted">            
 
 	    <okiba cardsname="bench4cards" :nottile=true title="ベンチ4" :cardwidth=100></okiba>
 	    <cardokiba cardsname="bench4cards"  :cardwidth=60></cardokiba>	    
 	  </small>
 	</b-col>
-	<b-col class="bg-light border">
+	<b-col @click="setCardmodalShow({'name':'bench5cards', 'value':true});" class="bg-light border">
 	  <small class="text-muted">
 
 	    <okiba cardsname="bench5cards"  :nottile=true title="ベンチ5" :cardwidth=100></okiba>

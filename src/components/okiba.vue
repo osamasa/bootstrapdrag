@@ -1,8 +1,6 @@
 <template>
-  <div>      
+  <div>
     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true" @end="drag=false">{{nottile && innerMycarditems.length > 0 ? '' : this.title}}{{nottile ? '' : '(' + innerMycarditems.length + ')'}}
-      <b-button size="sm" variant="outline-primary" @click="cardmodalShow=!cardmodalShow">OPEN
-      </b-button>
     </draggable>
     <b-modal v-model="cardmodalShow"  size="xl" centered :title="titles[cardsname]" ok-only>
       <div>
@@ -18,10 +16,10 @@
 	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : cardsname})">全解除</b-button>
 	    </b-col>
 	    <b-col>
-	      <b-button v-if="hasSelectedCard" size="sm" @click="setSelectedCardsProp({'name':cardsname, 'ura':false});" variant="primary">表に</b-button>
+	      <b-button v-if="hasSelectedCard" size="sm" @click="setSelectedCardsProp({'name':cardsname, 'ura':false});allUnSelected({'name':cardsname});" variant="primary">表に</b-button>
 	    </b-col>
 	    <b-col>
-	      <b-button v-if="hasSelectedCard" @click="setSelectedCardsProp({'name':cardsname, 'ura':true});" size="sm" variant="primary">裏に</b-button>
+	      <b-button v-if="hasSelectedCard" @click="setSelectedCardsProp({'name':cardsname, 'ura':true});allUnSelected({'name':cardsname});" size="sm" variant="primary">裏に</b-button>
 	    </b-col>
 	  </b-row>
 	  <b-row v-if="hasSelectedCard">
