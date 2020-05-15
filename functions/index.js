@@ -50,7 +50,7 @@ exports.getPokemonCard = functions.https.onCall(async (data, context) => {
 	await browser.close();
     }
 });
-
+/**
 exports.echo_onCall = functions.https.onCall((data, context) => {
     console.log('data: ' + JSON.stringify(data))
     console.log('context.auth: ' + JSON.stringify(context.auth))
@@ -59,3 +59,4 @@ exports.echo_onCall = functions.https.onCall((data, context) => {
     }
     return data
 });
+**/
