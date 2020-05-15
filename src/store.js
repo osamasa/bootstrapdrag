@@ -287,7 +287,7 @@ export default new Vuex.Store({
 	    const func = functions.httpsCallable("getPokemonCard");
 	    func({ deccd: context.getters.getDeckcd }).then(res => {
 		const cards = [];
-		res.data.forEach( rec => {cards.push(new CardClass(rec.img))});
+		res.data.forEach( rec => {cards.push({'id':CardClass.count() ,'img':rec.img,'alt':rec.alt, 'isUra':true, 'isSelected':false })});
 		context.commit('setDeckCards',CardClass.shuffleCards(cards));
 		context.commit('setMyCards',[]);
 		context.commit('setBattleCards',[]);
