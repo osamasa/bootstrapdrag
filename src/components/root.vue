@@ -1,18 +1,26 @@
 <template>
   <div>
     <b-container>
-      <b-row style='height: 130px'>
-	<b-col @click="setCardmodalShow({'name':'battlecards', 'value':true});" class="bg-light border">
-	  <small class="text-muted">    	  
-	  <okiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100></okiba>
-	  <cardokiba cardsname="battlecards" :cardwidth=60></cardokiba>	  
-	</small></b-col>
+    <b-row style='height: 130px'>
+	<b-col class="bg-light border" @click="setDblClickMode('battlecards')">
+	  <small class="text-muted">
+	    <okiba v-if="clicknm==='battlecards'" cardsname="mycards" :nottile=true title="手札"  :cardwidth=100></okiba>
+	    <okiba v-else cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100></okiba>
 
-	<b-col @click="setCardmodalShow({'name':'studiumscards', 'value':true});" class="bg-light border">
-	  <small class="text-muted">    
-	    <okiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=100></okiba>
-	    <cardokiba cardsname="studiumscards" :cardwidth=60></cardokiba>	    
-	</small></b-col>
+	    <cardokiba v-if="clicknm==='battlecards'" cardsname="mycards" :cardwidth=60></cardokiba>
+    	    <cardokiba v-else cardsname="battlecards" :cardwidth=60></cardokiba>	  
+	  </small>
+	</b-col>
+
+	<b-col class="bg-light border" @click="setDblClickMode('studiumscards')">
+	  <small class="text-muted">
+	    <okiba v-if="clicknm==='studiumscards'" cardsname="mycards" :nottile=true title="手札"  :cardwidth=100></okiba>
+	    <okiba v-else cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=100></okiba>
+
+	    <cardokiba v-if="clicknm==='studiumscards'" cardsname="mycards" :cardwidth=60></cardokiba>
+    	    <cardokiba v-else cardsname="studiumscards" :cardwidth=60></cardokiba>	  
+	  </small>
+	</b-col>	
 	<b-col>
 	  <b-row class="h-50">
 	    <b-col @click="setCardmodalShow({'name':'deckcards', 'value':true});" class="zoomable bg-light border"><small class="text-muted">
@@ -40,68 +48,43 @@
 	  </b-row>
 	</b-col>
       </b-row>
-      <b-row style='height: 140px'>
-	<b-col class="bg-light border" @click="setCardmodalShow({'name':'bench1cards', 'value':true});">
+    <b-row style='height: 140px'>
+    
+    <b-col v-for="index of 5" :key="index" class="bg-light border" @click="setDblClickMode(getBentchName(index))">
 	  <small class="text-muted">
-	    <okiba cardsname="bench1cards" :nottile=true title="ベンチ1"  :cardwidth=100></okiba>
-	    <cardokiba cardsname="bench1cards" :cardwidth=60></cardokiba>
+	    <okiba v-if="clicknm===getBentchName(index)" cardsname="mycards" :nottile=true title="手札"  :cardwidth=100></okiba>
+    <okiba v-else :cardsname="getBentchName(index)" :nottile=true :title="getDecktitles(getBentchName(index))"  :cardwidth=100></okiba>	    
+	    <cardokiba v-if="clicknm===getBentchName(index)" cardsname="mycards" :cardwidth=60></cardokiba>
+	    <cardokiba v-else :cardsname="getBentchName(index)" :cardwidth=60></cardokiba>
 	  </small>
 	</b-col>
-	<b-col @click="setCardmodalShow({'name':'bench2cards', 'value':true});" class="bg-light border">
-	  <small class="text-muted">    
-
-	    <okiba  cardsname="bench2cards" :nottile=true title="ベンチ2"  :cardwidth=100></okiba>
-	    <cardokiba cardsname="bench2cards"  :cardwidth=60></cardokiba>	    
-	  </small>
-	</b-col>
-	<b-col @click="setCardmodalShow({'name':'bench3cards', 'value':true});" class="bg-light border">
-	  <small class="text-muted">        
-
-	    <okiba cardsname="bench3cards" :nottile=true title="ベンチ3"  :cardwidth=100></okiba>
-	    <cardokiba cardsname="bench3cards" :cardwidth=60></cardokiba>	    
-	  </small>
-	</b-col>
-	<b-col @click="setCardmodalShow({'name':'bench4cards', 'value':true});" class="bg-light border">
-	  <small class="text-muted">            
-
-	    <okiba cardsname="bench4cards" :nottile=true title="ベンチ4" :cardwidth=100></okiba>
-	    <cardokiba cardsname="bench4cards"  :cardwidth=60></cardokiba>	    
-	  </small>
-	</b-col>
-	<b-col @click="setCardmodalShow({'name':'bench5cards', 'value':true});" class="bg-light border">
-	  <small class="text-muted">
-
-	    <okiba cardsname="bench5cards"  :nottile=true title="ベンチ5" :cardwidth=100></okiba>
-	    	    <cardokiba cardsname="bench5cards" :cardwidth=60></cardokiba>
-	    </small>
-	</b-col>	
       </b-row>
       <b-row class="row item">
-	<b-col>
+	<b-col @click="setMydeckClick">
 	  <b-row>
 	    <b-col cols="2">
-	      <small class="text-muted">手札</small>
+	      <small class="text-muted">{{getDecktitles(clicknm)}}</small>
 	    </b-col>
 	    <b-col  cols="3">
-	      <b-button size="sm" variant="primary" @click="allSelected({'name' : 'mycards'})">全選択</b-button>
+	      <b-button size="sm" variant="primary" @click="allSelected({'name' : clicknm})">全選択</b-button>
 	    </b-col>
 	    <b-col  cols="3">
-	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : 'mycards'})">全解除</b-button>
+	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : clicknm})">全解除</b-button>
 	    </b-col>
     <b-col v-if="hasSelectedCard">
       <b-input-group>
 	      <b-form-select
 		v-model="selecdeck"
-		:options="getMoveabeldeckNames('mycards')"
+		:options="getMoveabeldeckNames(clicknm)"
     ></b-form-select>
 	<b-input-group-append>    
-    <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':'mycards' ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck})">移動</b-button>
+    <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':clicknm ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck})">移動</b-button>
     </b-input-group-append>
     </b-input-group>
 	    </b-col>	    
 	  </b-row>      	    
 	  <b-row>      
-	    <tefuda :cardwidth=60></tefuda>
+	    <tefuda :cardsname=clicknm :cardwidth=60></tefuda>
 	  </b-row>    	    
 	</b-col>
       </b-row>
@@ -188,12 +171,13 @@ export default {
 	yamafudatomy : 1,
 	yamafudatoside : 6,
 	modalShow: false,
-        selecdeck : 'mycards',	
+        selecdeck : null,	
 	options: {
             group: "myGroup",
             animation: 200
-        }
-
+        },
+	clicknm : 'mycards',
+	motonm : ''
     }),
     created() {
 	this.getPockemonJsonAction();
@@ -218,16 +202,37 @@ export default {
 	},
 	deckShuffleCards : function() {
 	    this.$store.commit('setDeckCards',CardClass.shuffleCards(this.$store.getters.getDeckCards));
+	},
+	setDblClickMode : function (prop) {
+	    if( this.clicknm !== prop ) {
+		this.motonm = this.clicknm;
+		this.clicknm = prop;
+	    } else  {
+		this.clicknm = 'mycards';
+		this.motonm = ''
+	    }
+	},
+	setMydeckClick : function() {
+	    if( this.clicknm !== 'mycards') {
+		this.clicknm = 'mycards';
+		this.motonm = ''
+	    }
 	}
     },
     computed: {
 	...mapGetters([
+  	    'getDecktitles',
 	    'getSelectrev',
 	    'getSelectura',
 	    'getMoveabeldeckNames'
 	]),
 	hasSelectedCard : function() {
-	    return CardClass.hasSelectedCard(this.$store.state['mycards'])
+	    return CardClass.hasSelectedCard(this.$store.state[this.clicknm])
+	},
+	getBentchName : function() {
+	    return function(index) {
+		return 'bench' + index + 'cards';
+	    }
 	}
     }
 }

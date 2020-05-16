@@ -1,7 +1,7 @@
 <template>
   <div>
-     <draggable v-model="mycards" group="myGroup" @start="drag=true"  @end="drag=false" :options="options" >
-      <div class="itemcard m-0" v-for="(item,index) in mycards" :key="item.id">
+     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false" :options="options" >
+      <div class="itemcard m-0" v-for="(item,index) in innerMycarditems" :key="item.id">
       	<selectablecardimg :cardwidth="cardwidth" :card="item"></selectablecardimg></div>
      </draggable>
   </div>
@@ -18,6 +18,7 @@ export default {
 
     props: {
 	'cardwidth': Number,
+	'cardsname' : String
     },
     
     data () {
@@ -26,19 +27,34 @@ export default {
                 group: "myGroup",
                 animation: 200,
 
-            }
-        }
+            },
+	    setternames: {
+		'deckcards' : 'setDeckCards',
+		'battlecards' : 'setBattleCards',
+		'bench1cards' : 'setBench1Cards',
+		'bench2cards' : 'setBench2Cards',
+		'bench3cards' : 'setBench3Cards',
+		'bench4cards' : 'setBench4Cards',		
+		'bench5cards' : 'setBench5Cards',
+		'lostzonecards' : 'setLostzoneCards',
+		'trashcards' : 'setTrashCards',
+		'mycards' : 'setMyCards',
+		'sidecards' : 'setSideCards',		
+		'studiumscards' : 'setStudiumsCards'	
+	    }
+        }	    
     },
     computed: {
-    	mycards : {
+    	innerMycarditems : {
 	    get() {
-		 return this.$store.state.mycards;
+		return this.$store.state[this.cardsname];
 	     },
 	    set(value) {
-		this.$store.commit('setMyCards',value)
+		this.$store.commit(this.setternames[this.cardsname], value);
 	     }
 	}
-    }	
+    }	    
+
 }
 </script>
 

@@ -49,7 +49,22 @@ export default new Vuex.Store({
 		'sidecards' : true,
 		'studiumscards' : false
 	    },
+	decktitles : {
+	    'mycards' : '手札',
+	    'deckcards' : '山札',
+	    'sidecards' : 'サイド',
+	    'studiumscards': 'スタジアム',
+	    'battlecards' : 'バトル場',
+	    'lostzonecards' : 'ロストゾーン',
+	    'trashcards' : 'トラッシュ',
+	    'bench1cards': 'ベンチ１',
+	    'bench2cards': 'ベンチ２',
+	    'bench3cards': 'ベンチ３',
+	    'bench4cards': 'ベンチ４',
+	    'bench5cards': 'ベンチ５'
+	},
 	moveabeldecknames : [
+	    { value: null , text : '-----------'},
 		{ value: 'deckcards', text: '山札へ' },
 		{ value: 'sidecards', text: 'サイドへ' },
 		{ value: 'studiumscards', text: 'スタジアムへ' },
@@ -80,6 +95,9 @@ export default new Vuex.Store({
 	deckcd: '6H6ggn-GcjdrT-LQnnHg',
     },
     getters: {
+	getDecktitles: (state) => (prop) => {
+	    return state.decktitles[prop];
+	},
 	getMoveabeldeckNames: (state) => (prop) => {
 	    const self_cardsname = prop;
 	    let ret = [];
@@ -246,23 +264,6 @@ export default new Vuex.Store({
 	}
     },
     actions: {
-	async isShowColumn(context,payload) {
-	    let retvalue = false;
-	    const cardsname = payload.cardsname;
-	    if(context.getters['getDblclicknm'] === cardsname) {
-		retvalue = true;
-	    }
-
-	    return retvalue;
-	},
-	async chgDblClickMode(context,payload) {
-	    const cardsname = payload.cardsname;
-	    if(context.getters['getDblclicknm'] === cardsname) {
-		context.commit('setDblclicknm','');
-	    } else {
-		context.commit('setDblclicknm', cardsname);		
-	    }
-	},
 	async resetMyDecks(context,payload) {
 	    const works=['mycards','bench5cards','bench4cards','bench3cards','bench2cards','bench1cards','lostzonecards','trashcards','sidecards','studiumscards','battlecards'];
 	    works.forEach(cardname => {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true" @end="drag=false">{{nottile && innerMycarditems.length > 0 ? '' : this.title}}{{nottile ? '' : '(' + innerMycarditems.length + ')'}}
+    <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true" @end="drag=false">{{ this.title + '(' + innerMycarditems.length + ')'}}
     </draggable>
     <b-modal v-model="cardmodalShow"  size="xl" centered :title="titles[cardsname]" ok-only>
       <div>
@@ -25,7 +25,7 @@
 	  <b-row v-if="hasSelectedCard">
     <b-col>
       <b-input-group>
-	      <b-form-select
+      	      <b-form-select
 		v-model="selecdeck"
 		:options="getMoveabeldeckNames(cardsname)"
     ></b-form-select>
@@ -99,7 +99,7 @@ export default {
 	    },
 	    selectbenchno : 1,
 	    benchno : [1,2,3,4,5],
-	    selecdeck : 'deckcards',
+	    selecdeck : null,
 	    shstatus : true,
 	    setternames: {
 		'deckcards' : 'setDeckCards',
