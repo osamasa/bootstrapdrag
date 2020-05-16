@@ -60,7 +60,7 @@
 	</b-col>
       </b-row>
       <b-row class="row item">
-	<b-col @click="setMydeckClick">
+	<b-col>
 	  <b-row>
 	    <b-col cols="2">
 	      <small class="text-muted">{{getDecktitles(clicknm)}}</small>
