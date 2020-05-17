@@ -1,23 +1,23 @@
 <template>
   <div>
     <b-container>
-    <b-row style='height: 130px'>
+      <b-row style='height: 130px'>
 	<b-col class="bg-light border" @click="setDblClickMode('battlecards')">
 	  <small class="text-muted">
-	    <okiba v-if="clicknm==='battlecards'" cardsname="mycards" :nottile=true title="手札"  :cardwidth=100></okiba>
+	    <okiba v-if="clicknm==='battlecards'" cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場"  :cardwidth=100></okiba>
 	    <okiba v-else cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100></okiba>
 
-	    <cardokiba v-if="clicknm==='battlecards'" cardsname="mycards" :cardwidth=60></cardokiba>
+	    <cardokiba v-if="clicknm==='battlecards'" cardsname="battlecards" :cardwidth=60></cardokiba>
     	    <cardokiba v-else cardsname="battlecards" :cardwidth=60></cardokiba>	  
 	  </small>
 	</b-col>
 
 	<b-col class="bg-light border" @click="setDblClickMode('studiumscards')">
 	  <small class="text-muted">
-	    <okiba v-if="clicknm==='studiumscards'" cardsname="mycards" :nottile=true title="手札"  :cardwidth=100></okiba>
+	    <okiba v-if="clicknm==='studiumscards'" cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ"  :cardwidth=100></okiba>
 	    <okiba v-else cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=100></okiba>
 
-	    <cardokiba v-if="clicknm==='studiumscards'" cardsname="mycards" :cardwidth=60></cardokiba>
+	    <cardokiba v-if="clicknm==='studiumscards'" cardsname="studiumscards" :cardwidth=60></cardokiba>
     	    <cardokiba v-else cardsname="studiumscards" :cardwidth=60></cardokiba>	  
 	  </small>
 	</b-col>	
@@ -48,46 +48,79 @@
 	  </b-row>
 	</b-col>
       </b-row>
-    <b-row style='height: 140px'>
-    
-    <b-col v-for="index of 5" :key="index" class="bg-light border" @click="setDblClickMode(getBentchName(index))">
-	  <small class="text-muted">
-	    <okiba v-if="clicknm===getBentchName(index)" cardsname="mycards" :nottile=true title="手札"  :cardwidth=100></okiba>
-    <okiba v-else :cardsname="getBentchName(index)" :nottile=true :title="getDecktitles(getBentchName(index))"  :cardwidth=100></okiba>	    
-	    <cardokiba v-if="clicknm===getBentchName(index)" cardsname="mycards" :cardwidth=60></cardokiba>
-	    <cardokiba v-else :cardsname="getBentchName(index)" :cardwidth=60></cardokiba>
+      <b-row style='height: 140px'>
+	<b-col v-for="index of 5" :key="index" class="bg-light border" @click="setDblClickMode(getBentchName(index))">
+	  <small v-if="clicknm!==getBentchName(index)" class="text-muted">
+	    <okiba :cardsname="getBentchName(index)" :nottile=true :title="getDecktitles(getBentchName(index))"  :cardwidth=100></okiba>	    
+	    <cardokiba :cardsname="getBentchName(index)" :cardwidth=60></cardokiba>
 	  </small>
+
 	</b-col>
       </b-row>
-      <b-row class="row item">
+      <b-row v-if="clicknm!=='mycards'" class="item">
 	<b-col>
 	  <b-row>
-	    <b-col cols="2">
+	    <b-col cols="3">
 	      <small class="text-muted">{{getDecktitles(clicknm)}}</small>
 	    </b-col>
-	    <b-col  cols="3">
+	    <b-col >
 	      <b-button size="sm" variant="primary" @click="allSelected({'name' : clicknm})">全選択</b-button>
 	    </b-col>
-	    <b-col  cols="3">
+	    <b-col >
 	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : clicknm})">全解除</b-button>
 	    </b-col>
-    <b-col v-if="hasSelectedCard">
-      <b-input-group>
-	      <b-form-select
-		v-model="selecdeck"
-		:options="getMoveabeldeckNames(clicknm)"
-    ></b-form-select>
-	<b-input-group-append>    
-    <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':clicknm ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck})">移動</b-button>
-    </b-input-group-append>
-    </b-input-group>
-	    </b-col>	    
+	    <b-col cols="3" v-if="hasSelectedCard">
+	      <b-input-group>
+		<b-form-select
+		  v-model="selecdeck"
+		  :options="getMoveabeldeckNames(clicknm)"
+		  ></b-form-select>
+		<b-input-group-append>    
+		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':clicknm ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck})">移動</b-button>
+		</b-input-group-append>
+	      </b-input-group>
+	    </b-col>
+	    <b-col cols="1">
+	      <button type="button" @click="clicknm='mycards'" class="close" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	      </button>
+	    </b-col>
 	  </b-row>      	    
 	  <b-row>      
 	    <tefuda :cardsname=clicknm :cardwidth=60></tefuda>
 	  </b-row>    	    
 	</b-col>
       </b-row>
+      <b-row  class="item">
+	<b-col>
+	  <b-row>
+	    <b-col cols="2">
+	      <small class="text-muted">{{getDecktitles('mycards')}}</small>
+	    </b-col>
+	    <b-col  cols="3">
+	      <b-button size="sm" variant="primary" @click="allSelected({'name' : 'mycards'})">全選択</b-button>
+	    </b-col>
+	    <b-col  cols="3">
+	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : 'mycards'})">全解除</b-button>
+	    </b-col>
+	    <b-col v-if="hasSelectedCard">
+	      <b-input-group>
+		<b-form-select
+		  v-model="selecdeck"
+		  :options="getMoveabeldeckNames('mycards')"
+		  ></b-form-select>
+		<b-input-group-append>    
+		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':'mycards' ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck})">移動</b-button>
+		</b-input-group-append>
+	      </b-input-group>
+	    </b-col>	    
+	  </b-row>      	    
+	  <b-row>      
+	    <tefuda cardsname='mycards' :cardwidth=60></tefuda>
+	  </b-row>    	    
+	</b-col>
+      </b-row>
+      
     </b-container>      
 
     <div class="fixed-bottom d-flex flex-row-reverse p-2">
@@ -107,7 +140,6 @@
 	  </b-col>
 	</b-row>
 	<b-row class="mb-1">	
-
 	  <b-col cols="3">
 	    <b-form-select
 	      v-model="yamafudatoside"
@@ -118,7 +150,6 @@
 	    <button type="button" @click="selectCardFromTop({'name':'deckcards', 'num':yamafudatoside});moveSelectedCard({'from':'deckcards','out':'sidecards','rev':false});setSelectedCardsProp({'name':'sidecards', 'ura':true});allUnSelected({'name':'sidecards'});modalShow=!modalShow;" class="btn btn-outline-primary btn-lg btn-block">枚山札からサイドへ</button>
 	  </b-col>
 	</b-row>
-
 	<b-row class="mb-1">	
 	  <b-col cols="3">
 	    <b-form-select
@@ -204,7 +235,7 @@ export default {
 	    this.$store.commit('setDeckCards',CardClass.shuffleCards(this.$store.getters.getDeckCards));
 	},
 	setDblClickMode : function (prop) {
-	    if( this.clicknm !== prop ) {
+            if (( this.clicknm !== prop ) && (this.$store.state[prop].length>0)) {
 		this.motonm = this.clicknm;
 		this.clicknm = prop;
 	    } else  {
