@@ -21,34 +21,6 @@ export default new Vuex.Store({
 	    'studiumscards': false,
 	    'sidecards': false
 	},
-	    selectrev: {
-		'deckcards' : true,
-		'battlecards' : false,
-		'bench1cards' : false, 
-		'bench2cards' : false,
-		'bench3cards' : false,
-		'bench4cards' : false,
-		'bench5cards' : false,
-		'lostzonecards' : false,
-		'trashcards' : false,
-		'mycards' : false,
-		'sidecards' : false,
-		'studiumscards' : false
-	    },
-	    selectura: {
-		'deckcards' : true,
-		'battlecards' : false,
-		'bench1cards' : false, 
-		'bench2cards' : false,
-		'bench3cards' : false,
-		'bench4cards' : false,
-		'bench5cards' : false,
-		'lostzonecards' : false,
-		'trashcards' : false,
-		'mycards' : false,
-		'sidecards' : true,
-		'studiumscards' : false
-	    },
 	decktitles : {
 	    'mycards' : '手札',
 	    'deckcards' : '山札',
@@ -65,18 +37,19 @@ export default new Vuex.Store({
 	},
 	moveabeldecknames : [
 	    { value: null , text : '-----------'},
-		{ value: 'deckcards', text: '山札へ' },
-		{ value: 'sidecards', text: 'サイドへ' },
-		{ value: 'studiumscards', text: 'スタジアムへ' },
-		{ value: 'battlecards', text: 'バトル場へ' },
-		{ value: 'lostzonecards', text: 'ロストゾーンへ' },
-		{ value: 'trashcards', text: 'トラッシュへ' },
-		{ value: 'bench1cards', text: 'ベンチ１へ' },
-		{ value: 'bench2cards', text: 'ベンチ２へ' },
-		{ value: 'bench3cards', text: 'ベンチ３へ' },
-		{ value: 'bench4cards', text: 'ベンチ４へ' },
-		{ value: 'bench5cards', text: 'ベンチ５へ' },
-		{ value: 'mycards', text: '手札へ' }
+	    { value: {n:'deckcards',r:true, u:true}, text: '山札へ（一番上）' },
+	    { value: {n:'deckcards',r:false, u:true}, text: '山札へ（一番下）' },	    
+ 	    { value: {n:'sidecards',r:false, u:true}, text: 'サイドへ' },
+		{ value: {n:'studiumscards',r:false, u:false}, text: 'スタジアムへ' },
+	    { value: {n:'battlecards',r:false,u:false}, text: 'バトル場へ' },
+		{ value: {n:'lostzonecards',r:false,u:false}, text: 'ロストゾーンへ' },
+		{ value: {n:'trashcards',r:false,u:false}, text: 'トラッシュへ' },
+		{ value: {n:'bench1cards',r:false,u:false}, text: 'ベンチ１へ' },
+		{ value: {n:'bench2cards',r:false,u:false}, text: 'ベンチ２へ' },
+		{ value: {n:'bench3cards',r:false,u:false}, text: 'ベンチ３へ' },
+		{ value: {n:'bench4cards',r:false,u:false}, text: 'ベンチ４へ' },
+		{ value: {n:'bench5cards',r:false,u:false}, text: 'ベンチ５へ' },
+		{ value: {n:'mycards',r:false,u:false}, text: '手札へ' }
 		    ],
 
 	isLoading: false,	
@@ -101,17 +74,11 @@ export default new Vuex.Store({
 	getMoveabeldeckNames: (state) => (prop) => {
 	    const self_cardsname = prop;
 	    let ret = [];
-	    ret = state.moveabeldecknames.filter( hashv => hashv.value !== self_cardsname );
+	    ret = state.moveabeldecknames.filter( hashv => hashv.value==null || (hashv.value!=null && hashv.value.n !== self_cardsname) );
 	    return ret;
 	},		
 	getCardmodalShow: (state) => (prop) => {
 	    return state.cardmodalShow[prop];
-	},
-	getSelectrev:  (state) => (prop) => {
-	    return state.selectrev[prop];
-	},
-	getSelectura:  (state) => (prop) => {
-	    return state.selectura[prop];
 	},
 	getIsLoading: (state) => {
 	    return state.isLoading;

@@ -51,7 +51,7 @@
 
 	</b-col>
       </b-row>
-      <b-row v-if="clicknm!=='mycards'" class="item">
+      <b-row v-if="clicknm!=='mycards' && countDeckLength(clicknm)" class="item">
 	<b-col>
 	  <b-row>
 	    <b-col cols="2">
@@ -70,7 +70,7 @@
 		  :options="getMoveabeldeckNames(clicknm)"
 		  ></b-form-select>
 		<b-input-group-append>    
-		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':clicknm ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck})">移動</b-button>
+		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':clicknm ,'out': selecdeck.n,'rev':selecdeck.r});allSelected({'name' : selecdeck.n});setSelectedCardsProp({'name':selecdeck.n, 'ura':selecdeck.u});allUnSelected({'name':selecdeck.n})">移動</b-button>
 		</b-input-group-append>
 	      </b-input-group>
     </b-col>
@@ -106,7 +106,7 @@
 		  :options="getMoveabeldeckNames('mycards')"
 		  ></b-form-select>
 		<b-input-group-append>    
-		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':'mycards' ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck})">移動</b-button>
+		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':'mycards' ,'out': selecdeck.n,'rev':selecdeck.r});allSelected({'name' : selecdeck.n});setSelectedCardsProp({'name':selecdeck.n, 'ura':selecdeck.u});allUnSelected({'name':selecdeck.n})">移動</b-button>
 		</b-input-group-append>
 	      </b-input-group>
 	    </b-col>	    
@@ -186,12 +186,10 @@ import okiba from './okiba'
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
-import draggable from 'vuedraggable'
-import cardimg from './cardimg'
 import { CardClass } from '../PokemonCard.js'
 export default {
     name: "root",
-    components: { cardokiba , tefuda, okiba, draggable,cardimg},
+    components: { cardokiba , tefuda, okiba},
     data: () => ({
 	maisuu : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
 	negaiboshi:5,
@@ -249,10 +247,18 @@ export default {
     computed: {
 	...mapGetters([
   	    'getDecktitles',
-	    'getSelectrev',
-	    'getSelectura',
 	    'getMoveabeldeckNames'
 	]),
+	countDeckLength : function() {
+	    return function(decknm) {
+		if(this.$store.state[decknm].length == 0) {
+		    this.clicknm='mycards';
+		    return false;
+		} else {
+		    return true;
+		}
+	    }
+	},
 	hasSelectedCard : function() {
 	    return function(targetname) {
 	    	return CardClass.hasSelectedCard(this.$store.state[targetname]);

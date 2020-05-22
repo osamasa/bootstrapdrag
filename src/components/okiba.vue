@@ -30,7 +30,7 @@
 		:options="getMoveabeldeckNames(cardsname)"
     ></b-form-select>
 	<b-input-group-append>    
-    <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':cardsname  ,'out': selecdeck,'rev':getSelectrev(selecdeck)});allSelected({'name' : selecdeck});setSelectedCardsProp({'name':selecdeck, 'ura':getSelectura(selecdeck)});allUnSelected({'name':selecdeck});doWithShufftle();cardmodalShow=!cardmodalShow">移動</b-button>
+    <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':cardsname  ,'out': selecdeck.n,'rev':selecdeck.r});allSelected({'name' : selecdeck.n});setSelectedCardsProp({'name':selecdeck.n, 'ura':selecdeck.u});allUnSelected({'name':selecdeck.n});doWithShufftle();cardmodalShow=!cardmodalShow">移動</b-button>
     </b-input-group-append>
     </b-input-group>
 	    </b-col >
@@ -47,7 +47,7 @@
 	    </b-col>	
 	  </b-row>
 	</div>
-     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false" :options="options" >	
+     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false;cardmodalShow='mycards'" :options="options" >	
 	<div class="itemcard m-0" v-for="(item,index) in innerMycarditems" :key="item.id">
 	  <selectablecardimg :cardwidth="cardwidth" :card="item"></selectablecardimg>
 	</div>
@@ -134,8 +134,6 @@ export default {
     },
     computed: {
 	...mapGetters([
-	    'getSelectrev',
-	    'getSelectura',
 	    'getMoveabeldeckNames'
 	]),    
 	hasSelectedCard : function() {
