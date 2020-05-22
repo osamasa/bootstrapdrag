@@ -7,6 +7,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+	decksnames : [
+	    'deckcards',
+	    'battlecards',
+	    'bench1cards',
+	    'bench2cards',
+	    'bench3cards',
+	    'bench4cards',
+	    'bench5cards',
+	    'lostzonecards',
+	    'trashcards',
+	    'mycards',
+	    'studiumscards',
+	    'sidecards'], 
+
 	cardmodalShow: {
 	    'deckcards': false,
 	    'battlecards': false,
@@ -93,8 +107,27 @@ export default new Vuex.Store({
 	studiumscards : [],
 	sidecards:[],
 	deckcd: '6H6ggn-GcjdrT-LQnnHg',
+	aiteuid: '',
+	aitedeckcd: '',	
+	aitedeck : [],
+	curgameid: '',
     },
     getters: {
+	getAiteUid: (state) => {
+	    return state.aiteuid;
+	},
+	getAiteDeckCd: (state) => {
+	    return state.aitedeckcd;
+	},
+	getAiteDeck: (state) => {
+	    return state.aitedeck;
+	},
+	getDecksNames: (state) => {
+	    return state.decksnames;
+	},
+	getCurgameid: (state) => {
+	    return state.curgameid;
+	},	
 	getDecktitles: (state) => (prop) => {
 	    return state.decktitles[prop];
 	},
@@ -157,6 +190,22 @@ export default new Vuex.Store({
 	}
     },    
     mutations: {
+	setAiteUid(state,payload) {
+	    state.aiteuid = payload;
+	},
+	setAiteDeckCd(state,payload) {
+	    state.aitedeckcd = payload;
+	},
+	setAiteDeck(state,payload)  {
+	    state.aitedeck = payload;
+	},	
+	setNewCurgameid(state) {
+	    const newKey = firebase.database().ref().child('games').push().key;
+	    state.curgameid = newKey;
+	},
+	setCurgameid(state, payload) {
+	    state.curgameid = payload.curgameid;
+	},	
 	setCardmodalShow: (state,payload) => {
 	    state.cardmodalShow[payload.name] = payload.value;
 	},	
@@ -265,55 +314,140 @@ export default new Vuex.Store({
     },
     actions: {
 	async resetMyDecks(context,payload) {
-	    const works=['mycards','bench5cards','bench4cards','bench3cards','bench2cards','bench1cards','lostzonecards','trashcards','sidecards','studiumscards','battlecards'];
-	    works.forEach(cardname => {
-		if(context.state[cardname].length > 0) {
-		    context.commit('allSelected',{'name' : cardname});
-		    context.commit('moveSelectedCard',{'from':cardname,'out':'deckcards', 'ref' : false});
-		}
-	    });
-	    context.commit('setDeckCards',CardClass.shuffleCards(context.getters.getDeckCards));
-	    context.commit('selectCardFromTop',{'name':'deckcards', 'num':7});
-	    context.commit('moveSelectedCard',{'from':'deckcards','out':'mycards', 'ref' : false});
-	    context.commit('allOmote',{'name':'mycards'});
-	    context.commit('allUnSelected',{'name':'mycards'});
-	    context.commit('allUnSelected',{'name':'deckcards'});
-	},
-	async getPockemonJsonAction(context,payload) {
-	    context.commit( 'setIsLoading',true);
-	    const functions = firebase.functions();
-	    if (process.env.NODE_ENV == "development") {
-		functions.useFunctionsEmulator("http://localhost:5000");
-	    }
-	    const func = functions.httpsCallable("getPokemonCard");
-	    func({ deccd: context.getters.getDeckcd }).then(res => {
-		const cards = [];
-		res.data.forEach( rec => {cards.push({'id':CardClass.count() ,'img':rec.img,'alt':rec.alt, 'isUra':true, 'isSelected':false })});
-		context.commit('setDeckCards',CardClass.shuffleCards(cards));
-		context.commit('setMyCards',[]);
-		context.commit('setBattleCards',[]);
-		context.commit('setBench1Cards',[]);
-		context.commit('setBench2Cards',[]);
-		context.commit('setBench3Cards',[]);
-		context.commit('setBench4Cards',[]);
-		context.commit('setBench5Cards',[]);		
-		context.commit('setLostzoneCards',[]);
-		context.commit('setTrashCards',[]);
-
-		context.commit('setStudiumsCards',[]);
-		context.commit('setSideCards',[]);
-		
+	    try {
+		context.commit( 'setIsLoading',true);		
+		const works=['mycards','bench5cards','bench4cards','bench3cards','bench2cards','bench1cards','lostzonecards','trashcards','sidecards','studiumscards','battlecards'];
+		works.forEach(cardname => {
+		    if(context.state[cardname].length > 0) {
+			context.commit('allSelected', {'name' : cardname});
+			context.commit('moveSelectedCard', {'from':cardname,
+							'out':'deckcards',  'ref' : false});
+			firebase.database().ref('/games/' + context.getCurgameid()  + '/' + payload.uid + '/decks/' + cardname ).set([]);
+		    }
+		});
+		context.commit('setDeckCards',CardClass.shuffleCards(context.getters.getDeckCards));
 		context.commit('selectCardFromTop',{'name':'deckcards', 'num':7});
-		context.commit('moveSelectedCard',{'from':'deckcards','out':'mycards'});
+		context.commit('moveSelectedCard',{'from':'deckcards','out':'mycards', 'ref' : false});
 		context.commit('allOmote',{'name':'mycards'});
 		context.commit('allUnSelected',{'name':'mycards'});
-		
-		context.commit( 'setIsLoading',false);
-	    }).catch(e => {
-		console.log(e);
-		context.commit( 'setIsLoading',false);
-	    });
-	}
+		context.commit('allUnSelected',{'name':'deckcards'});
+		firebase.database().ref('/games/' + context.getCurgameid()  + '/' + payload.uid + '/decks/mycards').set(context.getters.getMyCards());	    	    
+		firebase.database().ref('/games/' + context.getCurgameid()  + '/' + payload.uid + '/decks/deckcards').set(context.getters.getDeckCards());
 
-  }
+	    } catch (error) {
+		console.log(error);
+	    } finally {
+		context.commit( 'setIsLoading',false);
+	    }
+	},
+	async getAitePokemonDeckAction(context,payload) {
+	    try {
+		context.commit( 'setIsLoading',true);
+		firebase.database().ref('/games/' + context.getters.getCurgameid + '/').on('users').then(function(snapshot)  {
+		    snapshot.forEach(function(cs) {
+			if(cs.key !== payload.uid) {
+			    context.commit.setAiteUid(cs.key);
+			    firebase.database().ref('/games/' + context.getters.getCurgameid + '/' + context.getters.getAiteUid() + '/deckcd/').on(function (snapshot) {
+				context.commit.setAiteDeckCd(snapshot.val());				
+			    })				
+			    firebase.database().ref('/games/' + context.getters.getCurgameid + '/' + context.getters.getAiteUid() + '/deckcards/').on(function (snapshot) {
+				context.commit.setAiteDeck(snapshot.val());
+			    })
+			}
+		    })
+		})
+	    } catch (error) {
+		console.log(error);
+	    } finally {
+		context.commit( 'setIsLoading',false);
+	    }
+	},
+	async getPockemonJsonAction(context,payload) {
+	    try {
+		context.commit( 'setIsLoading',true);		
+		const fref = firebase.database().ref('/games/' + context.getters.getCurgameid + '/' + payload.uid);
+
+		fref.once('deckcd').then(function(snapshot) {
+		    context.commit('setDeckcd', snapshot.val());
+		})
+		const tmp = context.getters.getDecksNames();		
+		tmp.forEach( n => {
+		    const setname = 'set' + n.splice(0,1).uppperCase() + n.slice(1).replace(/cards$/,'Cards');
+		    fref.once('decks/' + n).then(function(snapshot) {
+			context.commit(setname, snapshot.val());
+		    });
+		});
+		context.commit('setIsLoading',false);
+            } catch(error) {
+		console.log(error);
+	    }  finally {
+		context.commit('setIsLoading',false);
+	    }
+	},
+	async createPockemonCardGame(context,payload) {
+	    try {
+		context.commit( 'setIsLoading',true);
+		const ufb = firebase.database().ref('/games/' + context.getters.getCurgameid + '/users');
+
+		ufb.once(function(snapshot) {
+		    let contflg = false;
+		    let count = 0;
+		    if(snapshot) {
+			snapshot.forEach(n => {
+			    if(n.val() === payload.uid) {
+				contflg = true;
+			    }
+			    count++;
+			})
+			if((!contflg) && (count < 2)) {
+			    firebase.database().ref('/games/' + context.getters.getCurgameid + '/users/' + payload.uid).set(true);			    
+			    contflg = true;
+			}
+		    }
+		    if(!contflg) {
+			throw '[ERROR] ひとが多すぎて入れません';
+		    }
+		})
+		
+		firebase.database().ref('/games/' + context.getters.getCurgameid  + '/' + payload.uid + '/deckcd').set(context.getters.getCurgameid());
+		const functions = firebase.functions();
+		if (process.env.NODE_ENV == "development") {
+		    functions.useFunctionsEmulator("http://localhost:5000");
+		}
+		const func = functions.httpsCallable("getPokemonCard");		
+		func({ deccd: context.getters.getDeckcd }).then(res => {
+		    const cards = [];
+		    res.data.forEach( rec => {cards.push({'id':CardClass.count() ,'img':rec.img,'alt':rec.alt, 'isUra':true, 'isSelected':false })});
+		    context.commit('setDeckCards',CardClass.shuffleCards(cards));
+		    firebase.database().ref('/games/' + context.getCurgameid()  + '/' + payload.uid + '/decks/deckcards').set(context.getters.getDeckCards);
+		    context.commit('setMyCards', []);
+		    context.commit('setBattleCards', []);
+		    context.commit('setBench1Cards',[]);
+		    context.commit('setBench2Cards',[]);
+		    context.commit('setBench3Cards',[]);
+		    context.commit('setBench4Cards',[]);
+		    context.commit('setBench5Cards',[]);		
+		    context.commit('setLostzoneCards',[]);
+		    context.commit('setTrashCards',[]);
+		    context.commit('setStudiumsCards',[]);
+		    context.commit('setSideCards',[]);
+		    context.commit('selectCardFromTop',{'name':'deckcards', 'num':7});
+		    context.commit('moveSelectedCard',{'from':'deckcards','out':'mycards'});
+		    context.commit('allOmote',{'name':'mycards'});
+		    context.commit('allUnSelected',{'name':'mycards'});
+
+		    const tmp = context.getters.getDecksNames();
+		    tmp.forEach( n => {
+			const getname = 'get' + n.splice(0,1).uppperCase() + n.slice(1).replace(/cards$/,'Cards');
+			fref.ref('decks/' + n).set(context.getters[getname]);
+		    });
+		});
+		context.commit( 'setIsLoading',false);
+	    } catch (error) {
+		console.log(error);
+	    } finally {
+		context.commit( 'setIsLoading',false);
+	    }		
+	}
+    }
 })

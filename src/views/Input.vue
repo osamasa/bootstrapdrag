@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'    
   export default {
       name: 'Input',
       computed: {
@@ -21,6 +22,24 @@
 		 this.$store.commit('setDeckcd',value);
 	     }
 	},
-      }
+      },
+      created() {
+	  this.setNewCurgameid();
+      },
+      methods : {
+	  ...mapGetters([
+	      'getCurgameid'
+	  ]),
+      	  ...mapActions([
+	      'createPockemonCardGame'
+	  ]),
+	  ...mapMutations([
+	      'setNewCurgameid'
+	  ]),
+	  startMyGame : function() {
+	      this.createPockemonCardGame();
+	      this.$router.push('/mydeck/' + this.getCurgameid())
+	  }
+      }       
   }
 </script>
