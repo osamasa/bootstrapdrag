@@ -1,5 +1,5 @@
-<template>
-  <div class="m-5">
+<template>  
+<div class="m-5">  
     <b-input-group prepend="デッキコード">
 	<b-form-input v-model="deckcd" placeholder="デッキコードを入力"></b-form-input>
 	<b-input-group-append>

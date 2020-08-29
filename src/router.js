@@ -18,6 +18,11 @@ export default new Router({
       path: '/mydeck',
       name: 'home',
       component: Home
-    },      
+    },
+    {
+      path: '/m/:deckcd',
+      name: 'home',
+      component: Home
+    },            
   ]
 })

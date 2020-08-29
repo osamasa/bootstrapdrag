@@ -6,7 +6,8 @@ import firebase from 'firebase'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 Vue.config.productionTip = false
 // Install BootstrapVue
 Vue.use(BootstrapVue)
