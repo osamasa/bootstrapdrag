@@ -13,12 +13,12 @@
       </div>
     </b-col>
   </b-row>
-  <b-modal v-model="modalShow" ok-only>
+  <b-modal v-model="modalShow" title="移動先" ok-only>
     <div v-if="isZoom">
       <b-img  fluid-grow :src="getImageUrl(card.img)" @dblclick="modalShow=!modalShow" ></b-img>
     </div>
     <div v-else>
-      <b-form-group label="移動先" v-slot="{ ariaDescribedby }">
+      <b-form-group v-slot="{ ariaDescribedby }">
 	<b-form-radio-group
           v-model="selecdeck"
           :options="getOptions"
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import CardClass from '../PokemonCard'
+import { CardClass } from '../PokemonCard.js'
 import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex'
 export default {

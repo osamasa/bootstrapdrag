@@ -15,6 +15,9 @@ export default new Vuex.Store({
 	    'bench3cards': false,
 	    'bench4cards': false,
 	    'bench5cards': false,
+	    'bench6cards': false,
+	    'bench7cards': false,
+	    'bench8cards': false,	    
 	    'lostzonecards': false,
 	    'trashcards': false,
 	    'mycards': false,
@@ -33,7 +36,10 @@ export default new Vuex.Store({
 	    'bench2cards': 'ベンチ２',
 	    'bench3cards': 'ベンチ３',
 	    'bench4cards': 'ベンチ４',
-	    'bench5cards': 'ベンチ５'
+	    'bench5cards': 'ベンチ５',
+	    'bench6cards': 'ベンチ６',
+	    'bench7cards': 'ベンチ７',
+	    'bench8cards': 'ベンチ８'
 	},
 	moveabeldecknames : [
 	    { value: null , text : '-----------'},
@@ -48,9 +54,16 @@ export default new Vuex.Store({
 		{ value: {n:'bench2cards',r:false,u:false}, text: 'ベンチ２へ' },
 		{ value: {n:'bench3cards',r:false,u:false}, text: 'ベンチ３へ' },
 		{ value: {n:'bench4cards',r:false,u:false}, text: 'ベンチ４へ' },
-		{ value: {n:'bench5cards',r:false,u:false}, text: 'ベンチ５へ' },
-		{ value: {n:'mycards',r:false,u:false}, text: '手札へ' }
-		    ],
+	    { value: {n:'bench5cards',r:false,u:false}, text: 'ベンチ５へ' },
+	    	    
+	    { value: {n:'mycards',r:false,u:false}, text: '手札へ' }
+	],
+
+	mugenDinerSelectorNames : [
+	    { value: {n:'bench6cards',r:false,u:false}, text: 'ベンチ６へ' },
+	    { value: {n:'bench7cards',r:false,u:false}, text: 'ベンチ７へ' },
+	    { value: {n:'bench8cards',r:false,u:false}, text: 'ベンチ８へ' }
+	],
 
 	isLoading: false,	
 	deckcards : [],
@@ -60,21 +73,34 @@ export default new Vuex.Store({
 	bench3cards : [],
 	bench4cards : [],
 	bench5cards : [],
+	bench6cards : [],
+	bench7cards : [],
+	bench8cards : [],			
 	lostzonecards : [],
 	trashcards: [],
 	mycards: [],
 	studiumscards : [],
 	sidecards:[],
 	deckcd: '6H6ggn-GcjdrT-LQnnHg',
+	isMugenDinner : false,
     },
     getters: {
+	getIsMugenDinner: (state) => {
+	    return state.isMugenDinner;
+	},
 	getDecktitles: (state) => (prop) => {
 	    return state.decktitles[prop];
 	},
 	getMoveabeldeckNames: (state) => (prop) => {
 	    const self_cardsname = prop;
 	    let ret = [];
-	    ret = state.moveabeldecknames.filter( hashv => hashv.value==null || (hashv.value!=null && hashv.value.n !== self_cardsname) );
+	    let tmp = [];
+	    if(state.isMugenDinner) {
+		tmp=state.moveabeldecknames.concat(state.mugenDinerSelectorNames)
+	    } else {
+		tmp=state.moveabeldecknames.slice()
+	    }
+	    ret = tmp.filter( hashv => hashv.value==null || (hashv.value!=null && hashv.value.n !== self_cardsname) );
 	    return ret;
 	},		
 	getCardmodalShow: (state) => (prop) => {
@@ -106,7 +132,16 @@ export default new Vuex.Store({
 	},
 	getBench5Cards: (state) => {
 	    return state.bench5cards;
-	},	
+	},
+	getBench6Cards: (state) => {
+	    return state.bench6cards;
+	},
+	getBench7Cards: (state) => {
+	    return state.bench7cards;
+	},
+	getBench8Cards: (state) => {
+	    return state.bench8cards;
+	},		
 	getLostzoneCards: (state) => {
 	    return state.lostzonecards;
 	},
@@ -124,6 +159,9 @@ export default new Vuex.Store({
 	}
     },    
     mutations: {
+	setIsMugenDinner: (state,payload) => {
+	    state.isMugenDinner = payload;
+	},
 	setCardmodalShow: (state,payload) => {
 	    state.cardmodalShow[payload.name] = payload.value;
 	},	
@@ -151,6 +189,15 @@ export default new Vuex.Store({
 	setBench5Cards: (state,value) => {
 	    state.bench5cards = value;
 	},
+	setBench6Cards: (state,value) => {
+	    state.bench6cards = value;
+	},
+	setBench7Cards: (state,value) => {
+	    state.bench7cards = value;
+	},
+	setBench8Cards: (state,value) => {
+	    state.bench8cards = value;
+	},	
 	setLostzoneCards: (state,value) => {
 	    state.lostzonecards = value;
 	},

@@ -2,15 +2,15 @@
   <div>
     <b-container>
       <b-row style='height: 130px'>
-	<b-col class="bg-light border" @click="setDblClickMode('battlecards')">
-	  <small v-if="clicknm!=='battlecards'" class="text-muted">
-	    <okiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100></okiba>
+	<b-col class="bg-light border" @click="setCardmodalShow({'name':'battlecards', 'value':true});">
+	  <small  class="text-muted">
+	    <okiba cardsname="battlecards" :nottile=true title="ﾊﾞﾄﾙ場" :cardwidth=100 :showuraomote=false></okiba>
     	    <cardokiba cardsname="battlecards" :cardwidth=60></cardokiba>	  
 	  </small>
 	</b-col>
 
-	<b-col class="bg-light border" @click="setDblClickMode('studiumscards')">
-	  <small v-if="clicknm!=='studiumscards'" class="text-muted">
+	<b-col class="bg-light border" @click="setCardmodalShow({'name':'studiumscards', 'value':true});">
+	  <small  class="text-muted">
 	    <okiba cardsname="studiumscards" :nottile=true title="ｽﾀｼﾞｱﾑ" :cardwidth=100></okiba>
     	    <cardokiba cardsname="studiumscards" :cardwidth=60></cardokiba>
 	  </small>
@@ -43,61 +43,24 @@
 	</b-col>
       </b-row>
       <b-row style='height: 140px'>
-	<b-col v-for="index of 5" :key="index" class="bg-light border" @click="setDblClickMode(getBentchName(index))">
-	  <small v-if="clicknm!==getBentchName(index)" class="text-muted">
-	    <okiba :cardsname="getBentchName(index)" :nottile=true :title="getDecktitles(getBentchName(index))"  :cardwidth=100></okiba>	    
-	    <cardokiba :cardsname="getBentchName(index)" :cardwidth=60></cardokiba>
+	<b-col v-for="index of isMugenDinner ? 8 : 5" :key="index" class="bg-light border" @click="setCardmodalShow({'name': getBentchName(index) , 'value':true});">
+	  <small  class="text-muted">
+	    <okiba :cardsname="getBentchName(index)" :nottile=true :title="getDecktitles(getBentchName(index))" :cardwidth=80></okiba>	    
+	    <cardokiba :cardsname="getBentchName(index)" :cardwidth="isMugenDinner ? 30 : 60"></cardokiba>
 	  </small>
 
 	</b-col>
       </b-row>
-      <b-row v-if="clicknm!=='mycards' && countDeckLength(clicknm)" class="item">
-	<b-col>
-	  <b-row>
-	    <b-col cols="2">
-	      <small class="text-muted">{{getDecktitles(clicknm)}}</small>
-	    </b-col>
-	    <b-col cols="3">
-	      <b-button size="sm" variant="primary" @click="allSelected({'name' : clicknm})">全選択</b-button>
-	    </b-col>
-	    <b-col cols="3">
-	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : clicknm})">全解除</b-button>
-	    </b-col>
-	    <b-col v-if="hasSelectedCard(clicknm)">
-	      <b-input-group>
-		<b-form-select
-		  v-model="selecdeck"
-		  :options="getMoveabeldeckNames(clicknm)"
-		  ></b-form-select>
-		<b-input-group-append>    
-		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':clicknm ,'out': selecdeck.n,'rev':selecdeck.r});allSelected({'name' : selecdeck.n});setSelectedCardsProp({'name':selecdeck.n, 'ura':selecdeck.u});allUnSelected({'name':selecdeck.n})">移動</b-button>
-		</b-input-group-append>
-	      </b-input-group>
-    </b-col>
-    <b-col v-else>
-    </b-col>
-	    <b-col cols="1">
-	      <button type="button" @click="clicknm='mycards'" class="close" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	      </button>
-	    </b-col>
-	  </b-row>      	    
-	  <b-row>      
-	    <tefuda :cardsname=clicknm :cardwidth=60></tefuda>
-	  </b-row>    	    
-	</b-col>
-      </b-row>
+
       <b-row  class="item">
 	<b-col>
 	  <b-row>
 	    <b-col cols="2">
 	      <small class="text-muted">{{getDecktitles('mycards')}}</small>
 	    </b-col>
-	    <b-col  cols="3">
-	      <b-button size="sm" variant="primary" @click="allSelected({'name' : 'mycards'})">全選択</b-button>
-	    </b-col>
-	    <b-col  cols="3">
-	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : 'mycards'})">全解除</b-button>
+	    <b-col  cols="4">
+	      <b-button class="mr-1 mb-1" size="sm" variant="primary" @click="allSelected({'name' : 'mycards'})">全選択</b-button>
+	      <b-button class="mb-1" size="sm" variant="primary" @click="allUnSelected({'name' : 'mycards'})">全解除</b-button>
 	    </b-col>
 	    <b-col v-if="hasSelectedCard('mycards')">
 	      <b-input-group>
@@ -122,6 +85,7 @@
     <div class="fixed-bottom d-flex flex-row-reverse p-2">
       <button @click="modalShow = !modalShow" type="button" class="btn btn-primary rounded-circle p-0" style="width:4rem;height:4rem;">＋</button>
     </div>
+    
     <b-modal v-model="modalShow" centered title="操作">
       <b-container>
 	<b-row class="mb-1">
@@ -166,9 +130,28 @@
 
 	<b-row class="mb-1">		
 	  <b-col>	    	    
-	    <button type="button" @click="deckShuffleCards();modalShow=!modalShow;" class="btn btn btn-outline-warning btn-lg btn-block">山札をシャッフル</button>
+	    <button type="button" @click="deckShuffleCards();modalShow=!modalShow;" class="btn btn-outline-warning btn-lg btn-block">山札をシャッフル</button>
 	  </b-col>
-	</b-row>    
+	</b-row>
+	<b-row class="mb-1">		
+	  <b-col>	    	    	
+	      <div align="right">
+		<button
+		  class="btn btn-outline-danger btn-lg btn-block"
+		  v-clipboard:copy="getGameURL"
+		  v-clipboard:success="onCopy"
+		  v-clipboard:error="onError"
+		  variant="danger">URLをコピーする</button>
+	      </div>
+	  </b-col>
+	</b-row>
+	<b-row class="ma-2 mb-3">		
+	  <b-col>
+	    <b-form-checkbox class="lead" v-model="isMugenDinner" name="check-button" switch>
+	      {{ isMugenDinner ? 'ムゲンダイナモード中' : '通常ベンチ数' }} ({{ isMugenDinner ? 'ベンチ数８' : 'ベンチ数５' }})
+	    </b-form-checkbox>
+	  </b-col>
+	</b-row>    	
 	<b-row class="mb-1">		
 	  <b-col>	    	    
 	    <button type="button" @click="resetMyDecks();modalShow=!modalShow;" class="btn btn btn-danger btn-lg btn-block">最初からやり直す</button>
@@ -176,6 +159,44 @@
 	</b-row>
       </b-container>
     </b-modal>
+    <b-modal v-model="modalShow2" v-if="clicknm!=='mycards' && countDeckLength(clicknm)" centered :title="getDecktitles(clicknm)">
+      <b-container>
+	<b-row>
+	<b-col>
+	  <b-row>
+	    <b-col cols="2">
+	      <small class="text-muted">{{getDecktitles(clicknm)}}</small>
+	    </b-col>
+	    <b-col cols="4">
+	      <b-button class="mr-1" size="sm" variant="primary" @click="allSelected({'name' : clicknm})">全選択</b-button>
+	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : clicknm})">全解除</b-button>
+	    </b-col>
+	    <b-col v-if="hasSelectedCard(clicknm)">
+	      <b-input-group>
+		<b-form-select
+		  v-model="selecdeck"
+		  :options="getMoveabeldeckNames(clicknm)"
+		  ></b-form-select>
+		<b-input-group-append>    
+		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':clicknm ,'out': selecdeck.n,'rev':selecdeck.r});allSelected({'name' : selecdeck.n});setSelectedCardsProp({'name':selecdeck.n, 'ura':selecdeck.u});allUnSelected({'name':selecdeck.n})">移動</b-button>
+		</b-input-group-append>
+	      </b-input-group>
+    </b-col>
+    <b-col v-else>
+    </b-col>
+	    <b-col cols="1">
+	      <button type="button" @click="clicknm='mycards'" class="close" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	      </button>
+	    </b-col>
+	  </b-row>      	    
+	  <b-row>      
+	    <tefuda :cardsname=clicknm :cardwidth=60></tefuda>
+	  </b-row>    	    
+	</b-col>
+      </b-row>
+      </b-container>
+    </b-modal>	
   </div>
 </template>
 
@@ -183,6 +204,7 @@
 import cardokiba from './cardokiba'
 import tefuda from './tefuda'
 import okiba from './okiba'
+import VueClipboard from 'vue-clipboard2'
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -196,6 +218,7 @@ export default {
 	yamafudatomy : 1,
 	yamafudatoside : 6,
 	modalShow: false,
+	modalShow2: false,	
         selecdeck : null,	
 	options: {
             group: "myGroup",
@@ -215,13 +238,20 @@ export default {
 	    'selectCardFromTop',
 	    'setSelectedCardsProp',
 	    'allOmote',
-	    'setCardmodalShow'
+	    'setCardmodalShow',
+	    'setIsMugenDinner'
 	]),
 	...mapActions([
 	    'getPockemonJsonAction',
 	    'chgDblClickMode',
 	    'resetMyDecks'
 	]),
+	onCopy: function (e) {
+	    alert('コピーしました: ' + e.text)
+	},
+	onError: function (e) {
+	    alert('Failed to copy texts')
+	},		
 	myShuffleCards : function() {
 	    this.$store.commit('setMyCards',CardClass.shuffleCards(this.$store.getters.getMyCards));
 	},
@@ -230,6 +260,7 @@ export default {
 	},
 	setDblClickMode : function (prop) {
             if (( this.clicknm !== prop ) && (this.$store.state[prop].length>0)) {
+//		this.modalShow2=!this.modalShow2
 		this.motonm = this.clicknm;
 		this.clicknm = prop;
 	    } else  {
@@ -247,8 +278,20 @@ export default {
     computed: {
 	...mapGetters([
   	    'getDecktitles',
-	    'getMoveabeldeckNames'
+	    'getMoveabeldeckNames',
+	    'getIsMugenDinner'
 	]),
+	getGameURL: function() {
+	    return 'https://pokemoncard-31df1.web.app/m/' + this.$store.getters.getDeckcd;
+	},
+	isMugenDinner : {
+	    get() {
+		return this.getIsMugenDinner;
+	    },
+	    set(value) {
+		this.setIsMugenDinner(value);
+	    }
+	},
 	countDeckLength : function() {
 	    return function(decknm) {
 		if(this.$store.state[decknm].length == 0) {

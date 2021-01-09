@@ -9,21 +9,13 @@
 	    <b-col cols="3">
 	      タップで選択
 	    </b-col>
-	    <b-col>
-	      <b-button size="sm" variant="primary" @click="allSelected({'name' : cardsname})">全選択</b-button>
+	    <b-col cols="4">
+	      <b-button size="sm" class="mr-1" variant="primary" @click="allSelected({'name' : cardsname})">全選択</b-button>
+	      <b-button size="sm" class="mr-1" variant="primary" @click="allUnSelected({'name' : cardsname})">全解除</b-button>
+	      <b-button v-show="!this.nottile" v-if="hasSelectedCard" class="mr-1" size="sm" @click="setSelectedCardsProp({'name':cardsname, 'ura':false});allUnSelected({'name':cardsname});" variant="primary">表に</b-button>
+	      <b-button v-show="!this.nottile" v-if="hasSelectedCard" @click="setSelectedCardsProp({'name':cardsname, 'ura':true});allUnSelected({'name':cardsname});" size="sm" variant="primary">裏に</b-button>
 	    </b-col>
-	    <b-col>
-	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : cardsname})">全解除</b-button>
-	    </b-col>
-	    <b-col>
-	      <b-button v-if="hasSelectedCard" size="sm" @click="setSelectedCardsProp({'name':cardsname, 'ura':false});allUnSelected({'name':cardsname});" variant="primary">表に</b-button>
-	    </b-col>
-	    <b-col>
-	      <b-button v-if="hasSelectedCard" @click="setSelectedCardsProp({'name':cardsname, 'ura':true});allUnSelected({'name':cardsname});" size="sm" variant="primary">裏に</b-button>
-	    </b-col>
-	  </b-row>
-	  <b-row v-if="hasSelectedCard">
-    <b-col>
+	    <b-col v-if="hasSelectedCard">
       <b-input-group>
       	      <b-form-select
 		v-model="selecdeck"
@@ -47,9 +39,9 @@
 	    </b-col>	
 	  </b-row>
 	</div>
-     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false;cardmodalShow='mycards'" :options="options" >	
+     <draggable v-model="innerMycarditems" group="myGroup" @start="drag=true"  @end="drag=false" :options="options" >	
 	<div class="itemcard m-0" v-for="(item,index) in innerMycarditems" :key="item.id">
-	  <selectablecardimg :cardwidth="cardwidth" :card="item"></selectablecardimg>
+	  <selectablecardimg :cardsname="cardsname" :cardwidth="cardwidth" :card="item"></selectablecardimg>
 	</div>
 	</draggable>
       </div>
@@ -74,7 +66,7 @@ export default {
 	'cardsname': String,
 	'title': String,
 	'cardwidth': Number,
-	'nottile' : Boolean
+	'nottile' : Boolean,
     },
     
     data () {
@@ -91,7 +83,10 @@ export default {
 		'bench2cards' : 'ベンチ２のカードを選択し移動',
 		'bench3cards' : 'ベンチ３のカードを選択し移動',
 		'bench4cards' : 'ベンチ４のカードを選択し移動',
-		'bench5cards' : 'ベンチ５のカードを選択し移動',	    
+		'bench5cards' : 'ベンチ５のカードを選択し移動',
+		'bench6cards' : 'ベンチ６のカードを選択し移動',
+		'bench7cards' : 'ベンチ７のカードを選択し移動',
+		'bench8cards' : 'ベンチ８のカードを選択し移動',	    		
 		'deckcards' : '山札のカードを選択し移動',
 		'sidecards' : 'サイドのカードを選択し移動',
 		'lostzonecards' : 'ロストゾーンのカードを選択し移動',
@@ -109,6 +104,9 @@ export default {
 		'bench3cards' : 'setBench3Cards',
 		'bench4cards' : 'setBench4Cards',		
 		'bench5cards' : 'setBench5Cards',
+		'bench6cards' : 'setBench6Cards',		
+		'bench7cards' : 'setBench7Cards',
+		'bench8cards' : 'setBench8Cards',		
 		'lostzonecards' : 'setLostzoneCards',
 		'trashcards' : 'setTrashCards',
 		'mycards' : 'setMyCards',
@@ -149,7 +147,7 @@ export default {
 	},
 	cardmodalShow : {
 	    get() {
-		 return this.$store.state.cardmodalShow[this.cardsname];
+		return this.$store.state.cardmodalShow[this.cardsname];
 	     },
 	    set(value) {
 		this.$store.commit('setCardmodalShow',{'name' : this.cardsname,'value': value})
