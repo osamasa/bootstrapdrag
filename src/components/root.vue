@@ -51,9 +51,8 @@
 
 	</b-col>
       </b-row>
-
       <b-row  class="item">
-	<b-col>
+	<b-col cols="12">
 	  <b-row>
 	    <b-col>
 	      <small class="text-muted">{{getDecktitles('mycards')}}</small>
