@@ -6,7 +6,7 @@
     <router-view/>
     <div>
       <div class="fluid-container footer">
-	<p class="text-center">Copyright &copy 2020, OSAPAPA. All Rights Reserved.</p>
+	<p class="text-center">Copyright &copy 2021, OSAPAPA. All Rights Reserved.</p>
       </div>
     </div>    
   </div>
