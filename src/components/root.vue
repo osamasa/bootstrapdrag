@@ -133,18 +133,6 @@
 	    <button type="button" @click="deckShuffleCards();modalShow=!modalShow;" class="btn btn-outline-warning btn-lg btn-block">山札をシャッフル</button>
 	  </b-col>
 	</b-row>
-	<b-row class="mb-1">		
-	  <b-col>	    	    	
-	      <div align="right">
-		<button
-		  class="btn btn-outline-danger btn-lg btn-block"
-		  v-clipboard:copy="getGameURL"
-		  v-clipboard:success="onCopy"
-		  v-clipboard:error="onError"
-		  variant="danger">URLをコピーする</button>
-	      </div>
-	  </b-col>
-	</b-row>
 	<b-row class="ma-2 mb-3">		
 	  <b-col>
 	    <b-form-checkbox class="lead" v-model="isMugenDinner" name="check-button" switch>

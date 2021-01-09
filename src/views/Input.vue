@@ -4,7 +4,7 @@
     <b-input-group prepend="デッキコード">
 	<b-form-input v-model="deckcd" placeholder="デッキコードを入力"></b-form-input>
 	<b-input-group-append>
-	  <router-link class="btn btn-primary" to="/mydeck">GO</router-link>
+	  <router-link class="btn btn-primary" :to="'/m/' + this.deckcd">GO</router-link>
 	</b-input-group-append>
     </b-input-group>	
   </div>
