@@ -81,7 +81,7 @@ export default new Vuex.Store({
 	mycards: [],
 	studiumscards : [],
 	sidecards:[],
-	deckcd: '6H6ggn-GcjdrT-LQnnHg',
+	deckcd: 'Y88KcY-ECtWjL-DcYY88',
 	isMugenDinner : false,
     },
     getters: {

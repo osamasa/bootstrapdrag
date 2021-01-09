@@ -144,9 +144,14 @@
 	</b-row>
 	<b-row class="mb-1">		
 	  <b-col>
-	    <router-link type="button" to="/" class="btn btn btn-danger btn-lg btn-block">コードから入れ直す</router-link>	    
+	    <router-link type="button" to="/" class="btn btn btn-warning btn-lg btn-block">コードから入れ直す</router-link>	    
 	  </b-col>
-	</b-row>	
+	</b-row>
+	<b-row class="mb-1">		
+	  <b-col>
+	    <b-link type="button" :href="'https://www.pokemon-card.com/deck/deck.html?deckID=' + getDeckcd" class="btn btn btn-success btn-lg btn-block">デッキを作り直す</b-link>	    
+	  </b-col>
+	</b-row>		
       </b-container>
     </b-modal>
     <b-modal v-model="modalShow2" v-if="clicknm!=='mycards' && countDeckLength(clicknm)" centered :title="getDecktitles(clicknm)">
@@ -271,10 +276,11 @@ export default {
 	...mapGetters([
   	    'getDecktitles',
 	    'getMoveabeldeckNames',
-	    'getIsMugenDinner'
+	    'getIsMugenDinner',
+	    'getDeckcd'
 	]),
 	getGameURL: function() {
-	    return 'https://pokemoncard-31df1.web.app/m/' + this.$store.getters.getDeckcd;
+	    return 'https://pokemoncard-31df1.web.app/m/' + getDeckcd;
 	},
 	isMugenDinner : {
 	    get() {
