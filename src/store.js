@@ -250,7 +250,7 @@ export default new Vuex.Store({
 	    context.commit( 'setIsLoading',true);
 	    const functions = firebase.functions();
 	    if (process.env.NODE_ENV == "development") {
-		functions.useFunctionsEmulator("http://localhost:5000");
+		functions.useFunctionsEmulator("http://localhost:5001");
 	    }
 	    const func = functions.httpsCallable("getPokemonCard");
 	    func({ deccd: context.getters.getDeckcd }).then(res => {

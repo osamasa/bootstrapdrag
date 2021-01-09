@@ -1,5 +1,6 @@
 <template>  
-<div class="m-5">  
+  <div class="m-5">
+    <a href="https://www.pokemon-card.com/deck/">公式ホームページ</a>で作成したデッキコードを入力しGOボタンを押してください
     <b-input-group prepend="デッキコード">
 	<b-form-input v-model="deckcd" placeholder="デッキコードを入力"></b-form-input>
 	<b-input-group-append>

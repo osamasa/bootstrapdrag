@@ -19,7 +19,7 @@ const firebaseConfig = {
   databaseURL: "https://pokemoncard-31df1.firebaseio.com",
   projectId: "pokemoncard-31df1",
   storageBucket: "pokemoncard-31df1.appspot.com",
-  messagingSenderId: "1005753857893",
+  /* messagingSenderId: "1005753857893", */
   appId: "1:1005753857893:web:26ace42f0740f8110f538c"
 };
 firebase.initializeApp(firebaseConfig);
