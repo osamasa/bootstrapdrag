@@ -6,16 +6,18 @@
       <div>
 	<div>
 	  <b-row>
-	    <b-col cols="3">
+	    <b-col>
 	      タップで選択
 	    </b-col>
-	    <b-col cols="4">
+	    <b-col>
 	      <b-button size="sm" class="mr-1" variant="primary" @click="allSelected({'name' : cardsname})">全選択</b-button>
 	      <b-button size="sm" class="mr-1" variant="primary" @click="allUnSelected({'name' : cardsname})">全解除</b-button>
 	      <b-button v-show="!this.nottile" v-if="hasSelectedCard" class="mr-1" size="sm" @click="setSelectedCardsProp({'name':cardsname, 'ura':false});allUnSelected({'name':cardsname});" variant="primary">表に</b-button>
 	      <b-button v-show="!this.nottile" v-if="hasSelectedCard" @click="setSelectedCardsProp({'name':cardsname, 'ura':true});allUnSelected({'name':cardsname});" size="sm" variant="primary">裏に</b-button>
 	    </b-col>
-	    <b-col v-if="hasSelectedCard">
+	  </b-row>
+	  <b-row v-if="hasSelectedCard">
+	    <b-col >
       <b-input-group>
       	      <b-form-select
 		v-model="selecdeck"

@@ -26,6 +26,9 @@
 	  if(this.$route.params.deckcd) {
 	      this.$store.commit('setDeckcd',this.$route.params.deckcd)
 	  }
+	  if(this.$route.params.mugendaiflg) {
+	      this.$store.commit('setIsMugenDinner',this.$route.params.mugendaiflg === '1')
+	  }
       }
   }
 </script>

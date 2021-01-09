@@ -55,14 +55,16 @@
       <b-row  class="item">
 	<b-col>
 	  <b-row>
-	    <b-col cols="2">
+	    <b-col>
 	      <small class="text-muted">{{getDecktitles('mycards')}}</small>
 	    </b-col>
-	    <b-col  cols="4">
+	    <b-col>
 	      <b-button class="mr-1 mb-1" size="sm" variant="primary" @click="allSelected({'name' : 'mycards'})">全選択</b-button>
 	      <b-button class="mb-1" size="sm" variant="primary" @click="allUnSelected({'name' : 'mycards'})">全解除</b-button>
 	    </b-col>
-	    <b-col v-if="hasSelectedCard('mycards')">
+	  </b-row>      	    	    	    
+	    <b-row v-if="hasSelectedCard('mycards')">
+	    <b-col >
 	      <b-input-group>
 		<b-form-select
 		  v-model="selecdeck"
@@ -72,7 +74,8 @@
 		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':'mycards' ,'out': selecdeck.n,'rev':selecdeck.r});allSelected({'name' : selecdeck.n});setSelectedCardsProp({'name':selecdeck.n, 'ura':selecdeck.u});allUnSelected({'name':selecdeck.n})">移動</b-button>
 		</b-input-group-append>
 	      </b-input-group>
-	    </b-col>	    
+	    </b-col>
+
 	  </b-row>      	    
 	  <b-row>      
 	    <tefuda cardsname='mycards' :cardwidth=60></tefuda>
@@ -124,12 +127,6 @@
 	
 	<b-row class="mb-1">		
 	  <b-col>	    	    
-	    <button type="button" @click="myShuffleCards();allSelected({'name':'mycards'});moveSelectedCard({'from':'mycards','out':'deckcards', 'rev':false});setSelectedCardsProp({'name':'deckcards', 'ura':true});allUnSelected({'name':'deckcards'});modalShow=!modalShow;" class="btn btn btn-outline-info btn-lg btn-block">手札をすべて山札の下に(マリィ)</button>
-	  </b-col>
-	</b-row>
-
-	<b-row class="mb-1">		
-	  <b-col>	    	    
 	    <button type="button" @click="deckShuffleCards();modalShow=!modalShow;" class="btn btn-outline-warning btn-lg btn-block">山札をシャッフル</button>
 	  </b-col>
 	</b-row>
@@ -142,9 +139,14 @@
 	</b-row>    	
 	<b-row class="mb-1">		
 	  <b-col>	    	    
-	    <button type="button" @click="resetMyDecks();modalShow=!modalShow;" class="btn btn btn-danger btn-lg btn-block">最初からやり直す</button>
+	    <button type="button" @click="resetMyDecks();modalShow=!modalShow;" class="btn btn btn-danger btn-lg btn-block">はじめからからやり直す</button>
 	  </b-col>
 	</b-row>
+	<b-row class="mb-1">		
+	  <b-col>
+	    <router-link type="button" to="/" class="btn btn btn-danger btn-lg btn-block">コードから入れ直す</router-link>	    
+	  </b-col>
+	</b-row>	
       </b-container>
     </b-modal>
     <b-modal v-model="modalShow2" v-if="clicknm!=='mycards' && countDeckLength(clicknm)" centered :title="getDecktitles(clicknm)">
@@ -152,14 +154,16 @@
 	<b-row>
 	<b-col>
 	  <b-row>
-	    <b-col cols="2">
+	    <b-col>
 	      <small class="text-muted">{{getDecktitles(clicknm)}}</small>
 	    </b-col>
-	    <b-col cols="4">
+	    <b-col>
 	      <b-button class="mr-1" size="sm" variant="primary" @click="allSelected({'name' : clicknm})">全選択</b-button>
 	      <b-button size="sm" variant="primary" @click="allUnSelected({'name' : clicknm})">全解除</b-button>
 	    </b-col>
-	    <b-col v-if="hasSelectedCard(clicknm)">
+	  </b-row>
+	<b-row v-if="hasSelectedCard(clicknm)">      	    	    	  
+	    <b-col >
 	      <b-input-group>
 		<b-form-select
 		  v-model="selecdeck"
@@ -169,9 +173,9 @@
 		  <b-button  size="sm" variant="info" @click="moveSelectedCard({'from':clicknm ,'out': selecdeck.n,'rev':selecdeck.r});allSelected({'name' : selecdeck.n});setSelectedCardsProp({'name':selecdeck.n, 'ura':selecdeck.u});allUnSelected({'name':selecdeck.n})">移動</b-button>
 		</b-input-group-append>
 	      </b-input-group>
-    </b-col>
-    <b-col v-else>
-    </b-col>
+	    </b-col>
+	    <b-col>
+	    </b-col>
 	    <b-col cols="1">
 	      <button type="button" @click="clicknm='mycards'" class="close" aria-label="Close">
 		<span aria-hidden="true">&times;</span>

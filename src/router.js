@@ -20,7 +20,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/m/:deckcd',
+      path: '/m/:deckcd/:mugendaiflg',
       name: 'home',
       component: Home
     },            
