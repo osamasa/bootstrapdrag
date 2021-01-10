@@ -2,15 +2,8 @@
 <div>
   <b-row>
     <b-col>
-      <b-img @dblclick="isZoom=true;modalShow=!modalShow" @click="card.isSelected=!card.isSelected" :src="card.isUra===false ? getImageUrl(card.img) : 'https://www.pokemon-card.com/assets/images/noimage/poke_ura.jpg'"  v-bind:class="card.isSelected ?  'cardborder' : ''" v-bind:style="{width:(cardwidth+(card.isSelected ? 20 : 0))+'px'}"></b-img>
-    </b-col>
-  </b-row>
-  <b-row>
-    <b-col>
-      <div v-if="card.isSelected">
-	<b-button  @click="isZoom=true;modalShow=!modalShow" size="sm">拡大</b-button>
-	<b-button  @click="isZoom=false;modalShow=!modalShow" size="sm">移動</b-button>
-      </div>
+      <b-img @dblclick="isZoom=true;modalShow=!modalShow" @click="card.isSelected=!card.isSelected" :src="card.isUra===false ? getImageUrl(card.img) : 'https://www.pokemon-card.com/assets/images/noimage/poke_ura.jpg'"  v-bind:class="card.isSelected ?  'cardborder' : ''" v-bind:style="{width:cardwidth+'px'}"></b-img>
+	<b-button class="ml-n5" v-if="card.isSelected" @click="isZoom=true;modalShow=!modalShow" size="sm">拡大</b-button>
     </b-col>
   </b-row>
   <b-modal v-model="modalShow" title="移動先" ok-only>
